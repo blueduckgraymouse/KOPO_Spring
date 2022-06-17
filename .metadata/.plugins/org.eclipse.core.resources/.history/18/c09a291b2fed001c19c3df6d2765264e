@@ -1,0 +1,13 @@
+package kr.ac.kopo.ctc.kopo35.dao;
+
+import kr.ac.kopo.ctc.kopo35.domain.BoardItem;
+
+public class BoardItemDaoImpl implements BoardItemDao {
+
+	@Override
+	public BoardItem create(BoardItem boardItem) {
+
+		return null;
+	}
+
+}

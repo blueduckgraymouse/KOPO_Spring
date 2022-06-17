@@ -1,0 +1,14 @@
+package kr.ac.ctc.kopo35.Service.Test;
+
+
+import org.junit.jupiter.api.Test;
+
+class ScoreItemServiceTest {
+	private ScoreItemService scoreItemService = new ScoreItemServiceImpl();
+	
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
+
+}

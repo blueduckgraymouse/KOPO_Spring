@@ -1,0 +1,5 @@
+package kr.ac.kopo.ctc.kopo35.dao;
+
+public class BoardItemImpl implements BoarditemDao {
+
+}

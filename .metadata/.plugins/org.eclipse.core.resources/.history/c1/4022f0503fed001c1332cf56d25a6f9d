@@ -1,0 +1,7 @@
+package kr.ac.ctc.kopo35;
+
+public class ScoreItemService {
+	public int add(int a, int b) {
+		return a + b;
+	}
+}

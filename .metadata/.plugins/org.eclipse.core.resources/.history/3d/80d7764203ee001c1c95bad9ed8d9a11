@@ -1,0 +1,18 @@
+package kr.ac.ctc.kopo35.Dao.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import kr.ac.ctc.kopo35.Dao.ScoreItemDao;
+import kr.ac.ctc.kopo35.Dao.ScoreItemDaoImpl;
+
+class ScoreItemDaoTest {
+	private ScoreItemDao scoreItemDao = new ScoreItemDaoImpl();
+	
+	@Test
+	void test() {
+		int n = 1;
+		assertEquals(n, 1);
+	}
+}

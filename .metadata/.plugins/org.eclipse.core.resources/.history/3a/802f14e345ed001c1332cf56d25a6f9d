@@ -1,0 +1,5 @@
+package kr.ac.ctc.kopo35.Domain;
+
+public class ScoreItemDaoImpl {
+
+}

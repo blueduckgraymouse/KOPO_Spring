@@ -1,0 +1,7 @@
+package kr.ac.kopo.ctc.kopo35.service;
+
+import kr.ac.kopo.ctc.kopo35.dao.BoardItemDao;
+
+public class BoardItemServiceImpl implements BoardItemService {
+	private BoardItemDao boarItemDao = new BoardItemDaoImpl();
+}

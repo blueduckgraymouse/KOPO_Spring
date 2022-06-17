@@ -1,0 +1,4 @@
+<ul float="left">
+	<li><a href="/ScoreAdmin/selectAll.jsp">전제 조회</a></li>
+	<li><a href="/ScoreAdmin/selectAll.jsp">입력</a></li>
+</ul>

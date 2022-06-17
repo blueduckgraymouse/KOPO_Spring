@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+C:\KOPO\git_tracking\spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2121618035.index
+\ScoreAdmin\src\main\java
+C:\KOPO\git_tracking\spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\687368306.index
+\ScoreAdmin\src\main\java

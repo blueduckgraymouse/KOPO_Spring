@@ -1,0 +1,69 @@
+<%@page import="kr.ac.ctc.kopo35.Domain.ScoreItem"%>
+<%@page import="kr.ac.ctc.kopo35.Service.ScoreItemServiceImpl"%>
+<%@page import="kr.ac.ctc.kopo35.Service.ScoreItemService"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>수정</title>
+</head>
+
+<body>
+	<%
+		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
+		ScoreItem scoreItem = scoreItemService.scoreItemSelectId(Integer.ParseInt(request.getParameter("id")));
+	%>
+	<!-- 조회한 데이터가 뿌려질 테이블 -->
+	<form id="insert_record" method="post" action="/ScoreAdmin/UpdateOne.jsp">
+		<table>
+			<tr>
+				<td width=100px>
+					이름
+				</td>
+				<td width=250px>
+					<input type=text name="name_str" value="<%= scoreItem.getName() %>">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					학번
+				</td>
+				<td>
+					<input type=number name="id_str" value="<%= scoreItem.getId() %>">
+				</td>			
+			</tr>		
+			<tr>
+				<td>
+					국어
+				</td>
+				<td>
+					<input type=number name="score_kor" value="<%= scoreItem.getKor() %>">
+				</td>			
+			</tr>		
+			<tr>
+				<td>
+					영어
+				</td>
+				<td>
+					<input type=number name="score_eng" value="<%= scoreItem.getEng() %>">
+				</td>			
+			</tr>		
+			<tr>
+				<td>
+					수학
+				</td>
+				<td>
+					<input type=number name="score_mat" value="<%= scoreItem.getMat() %>">
+				</td>			
+			</tr>		
+		</table>
+		<input type="submit" value="저장">
+		<input type="button" onclick="history.go(-1)" value="취소">
+	</form>
+</body>
+
+</html>

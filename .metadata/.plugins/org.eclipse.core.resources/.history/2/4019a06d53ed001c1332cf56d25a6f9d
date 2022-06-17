@@ -1,0 +1,82 @@
+package kr.ac.ctc.kopo35.Dto;
+
+public class Pagination {	// Pagination와 목록 조회 data dto를 합치는게 나은지? 분리하는게 나은지? 
+	private int cPage;		// 현재 페이지 번호
+	private int startPage;	// 시작 페이지 번호
+	private int lastpage;
+	
+	private int pPage;		// 이전 그룹 마지막 페이지 번호, 없으면 0
+	private int ppPage;		// 첫 페이지 번호, 없으면 0
+	
+	private int endPage;	// 마지막 페이지 번호
+	
+	private int nPage;		// 다음 그룹 첫 페이지 번호, 없으면 0
+	private int nnPage;		// 총 페이지 번호, 없으면 0
+	
+	private int countPerPage;	// 한 페이지 당 노출시킬 레코드 수
+	private int pageSize;		// 한 페이징 그룹에 들어가는 페이지 수
+	private int totalRecordCount;	// 총 레코드 수
+	
+	public int getcPage() {
+		return cPage;
+	}
+	public void setcPage(int cPage) {
+		this.cPage = cPage;
+	}
+	public int getPpPage() {
+		return ppPage;
+	}
+	public void setPpPage(int ppPage) {
+		this.ppPage = ppPage;
+	}
+	public int getNnPage() {
+		return nnPage;
+	}
+	public void setNnPage(int nnPage) {
+		this.nnPage = nnPage;
+	}
+	public int getpPage() {
+		return pPage;
+	}
+	public void setpPage(int pPage) {
+		this.pPage = pPage;
+	}
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public int getEndPage() {
+		return endPage;
+	}
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+	public int getnPage() {
+		return nPage;
+	}
+	public void setnPage(int nPage) {
+		this.nPage = nPage;
+	}
+	public int getCountPerPage() {
+		return countPerPage;
+	}
+	public void setCountPerPage(int countPerPage) {
+		this.countPerPage = countPerPage;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getTotalRecordCount() {
+		return totalRecordCount;
+	}
+	public void setTotalRecordCount(int totalRecordCount) {
+		this.totalRecordCount = totalRecordCount;
+	}
+	
+	
+}

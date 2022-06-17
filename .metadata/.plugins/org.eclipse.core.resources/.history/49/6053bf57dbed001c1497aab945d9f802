@@ -1,0 +1,34 @@
+package kr.ac.ctc.kopo35.Service.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import kr.ac.ctc.kopo35.Dao.ScoreItemDao;
+import kr.ac.ctc.kopo35.Dao.ScoreItemDaoImpl;
+import kr.ac.ctc.kopo35.Dto.Pagination;
+import kr.ac.ctc.kopo35.Service.ScoreItemService;
+import kr.ac.ctc.kopo35.Service.ScoreItemServiceImpl;
+
+class ScoreItemServiceTest {
+	
+	private ScoreItemService scoreItemService = new ScoreItemServiceImpl();
+	private ScoreItemDao scoreItemDao = new ScoreItemDaoImpl();
+	
+	@Test
+	void testGetpagination() {
+		int cPage = 17;
+		int countPerPage = 10;
+		int pageSize = 10;
+		int total = 351;
+		Pagination pagination = scoreItemService.getPagination(cPage, countPerPage, pageSize, total);
+		assertEquals(3, pagination.getStartPage());
+	}
+	
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
+
+}

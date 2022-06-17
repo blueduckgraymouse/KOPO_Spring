@@ -1,0 +1,9 @@
+package kr.ac.kopo.ctc.kopo35.domain;
+
+public class BoardItem {
+	
+	String title;
+	String author;
+	Date created;
+	int view;
+}

@@ -1,0 +1,25 @@
+package kr.ac.ctc.kopo35.Dto;
+
+import java.util.ArrayList;
+
+import kr.ac.ctc.kopo35.Domain.ScoreItem;
+
+public class ScoreItemsDto {
+	private list<ScoreItem> ScoreItems;
+	private Pagination pageination;
+	
+	public ArrayList<ScoreItem> getScoreItems() {
+		return ScoreItems;
+	}
+	public void setScoreItems(ArrayList<ScoreItem> scoreItems) {
+		ScoreItems = scoreItems;
+	}
+	public Pagination getPageination() {
+		return pageination;
+	}
+	public void setPageination(Pagination pageination) {
+		this.pageination = pageination;
+	}
+	
+	
+}

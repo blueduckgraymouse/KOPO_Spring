@@ -1,0 +1,14 @@
+package kr.ac.ctc.kopo35.Dao.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class ScoreItemDaoTest {
+
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
+
+}

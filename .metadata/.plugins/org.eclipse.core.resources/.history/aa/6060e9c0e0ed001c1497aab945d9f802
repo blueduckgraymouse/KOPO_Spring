@@ -1,0 +1,122 @@
+package kr.ac.ctc.kopo35.Service;
+
+import java.util.List;
+
+import kr.ac.ctc.kopo35.Dao.ScoreItemDao;
+import kr.ac.ctc.kopo35.Dao.ScoreItemDaoImpl;
+import kr.ac.ctc.kopo35.Domain.ScoreItem;
+import kr.ac.ctc.kopo35.Dto.Pagination;
+import kr.ac.ctc.kopo35.Dto.ScoreItemsDto;
+
+public class ScoreItemServiceImpl implements ScoreItemService {
+	
+	private ScoreItemDao ScoreItemDao = new ScoreItemDaoImpl();
+	private final int countPerPage = 10;
+	private final int pageSize = 10;
+	
+	@Override
+	public ScoreItemsDto scoreItemSelectAll(String strCPage) {
+		
+		int cPage = 0;
+		if (strCPage == null) {
+			cPage = 1;
+		} else {
+			cPage = Integer.parseInt(strCPage);
+		}
+		
+		// 게시물 목록 조회
+		ScoreItemsDto scoreItemsDto = new ScoreItemsDto();
+		int startRecordNo = (cPage - 1) * countPerPage;
+		
+		// 페이징 처리
+		List<ScoreItem> ScoreItems = ScoreItemDao.selectAll(startRecordNo, countPerPage);
+		int totalRecordCount = ScoreItemDao.selectTotalCount();
+		Pagination pagination = getPagination(cPage, countPerPage, pageSize, totalRecordCount);
+		
+		scoreItemsDto.setScoreItems(ScoreItems);
+		scoreItemsDto.setPagination(pagination);
+
+		return scoreItemsDto;
+	}
+
+	
+	@Override
+	public List<ScoreItem> scoreItemSelectOne(int id) {
+		return ScoreItemDao.selectOne(id);
+	}
+
+	@Override
+	public boolean scoreItemInsertOne(String name, int id, int kor, int eng, int mat) {
+		return ScoreItemDao.updateOne(id) == 1 ? true : false;
+	}
+
+
+	@Override
+	public boolean scoreItemUpdateOne(String name, int id, int kor, int eng, int mat) {
+		return ScoreItemDao.deleteOne(id) == 1 ? true : false;
+	}
+
+
+	@Override
+	public boolean scoreItemDeleteOne() {
+		return ScoreItemDao.insertOne(id) == 1 ? true : false;
+	}
+	
+	
+	
+	
+	/* 페이지 정보를 계산 하는 메서드 */
+	public Pagination getPagination(int cPage, int countPerPage, int pageSize, int totalRecordCount) {
+		Pagination pagination = new Pagination();
+		
+		// 현재 페이지 번호
+		pagination.setcPage(cPage);
+		
+		// 총 페이지 수
+		int totalPage = 0;						
+		if ((totalRecordCount % countPerPage) == 0) {		
+			totalPage = totalRecordCount / countPerPage; 				
+		} else {								
+			totalPage = totalRecordCount / countPerPage + 1; 				
+		}
+		pagination.setTotalPage(totalPage);
+		
+		// 첫 페이지 번호
+		int startPage = (cPage / pageSize) * pageSize + 1;	
+		if ((cPage % pageSize) == 0) {		
+			startPage -= pageSize;
+		}
+		pagination.setStartPage(startPage);
+		
+		// 마지막 페이지 번호
+		int lastPage = (startPage + countPerPage - 1) >= totalPage ? totalPage : (startPage + countPerPage - 1);
+		pagination.setLastPage(lastPage);
+		
+		// 첫 페이지 번호 & 이전 그룹 마지막 페이지 번호
+		int ppPage = 0;
+		int pPage = 0;
+		if ( startPage != 1) {					
+			ppPage = 1;
+			pPage = startPage - 1;
+		}
+		pagination.setPpPage(ppPage);
+		pagination.setpPage(pPage);
+		
+		// 다음 그룹 첫 페이지 번호 & 마지막 페이지 번호
+		int nnPage = 0;
+		int nPage = 0;
+		if (!(startPage <= totalPage && totalPage <= startPage + pageSize) && (totalPage != 0)) {					
+			nnPage = totalPage;
+			nPage = startPage + countPerPage;
+		}
+		pagination.setNnPage(nnPage);
+		pagination.setnPage(nPage);
+		
+		// 한 페이지 당 레코드 수, 한 그룹 당 페이지 수, 총 게시물 수
+		pagination.setCountPerPage(countPerPage);
+		pagination.setPageSize(pageSize);
+		pagination.setTotalRecordCount(totalRecordCount);
+		return pagination;
+	}
+
+}

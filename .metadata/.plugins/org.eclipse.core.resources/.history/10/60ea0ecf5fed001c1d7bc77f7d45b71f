@@ -1,0 +1,45 @@
+package temp;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+
+public class Temp11 {
+
+	public Temp11() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");	
+		} catch (Exception e) {
+			throw new IllegalStateException("jdbc 드라이버 로드 실패");	// 앱을 끝냄
+		}
+	}
+	
+	public int size() {
+		int result = 0;
+		String sql = "select count(*) from examtable";
+		
+		try(
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/kopoctc", "root", "abcd1234");
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+			) {
+			while (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch(SQLException e) {
+			//e.printStackTrace(); // 에러 stack 콘솔에 출력, 프로그램은 그대로 진행
+			
+			//throw new IllegalStateException("db 연결 실패");
+			//	-> 에러 메세지가 에러를 찾기 어렵게 알려준다. (거의 결과만 알려줌)
+			
+			throw new IllegalStateException("db 연결 실패" + e.getMessage());	// 프로그램 종료, 에러 메세지 출력
+			
+		}
+		
+		return result;
+	}
+
+}

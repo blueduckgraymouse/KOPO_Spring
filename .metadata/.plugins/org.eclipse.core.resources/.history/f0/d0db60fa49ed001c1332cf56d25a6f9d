@@ -1,0 +1,5 @@
+package kr.ac.ctc.kopo35.Service;
+
+public interface ScoreItemService {
+	public ScoreItemSelectAll(int PageNo, int countPerPage, int pageSize);
+}

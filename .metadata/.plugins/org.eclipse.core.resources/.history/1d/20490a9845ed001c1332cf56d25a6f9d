@@ -1,0 +1,10 @@
+package kr.ac.ctc.kopo35.Domain;
+
+public class ScoreItem {
+	private String name;
+	private int id;
+	private int kor;
+	private int eng;
+	private int mat;
+	
+}

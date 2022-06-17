@@ -1,0 +1,17 @@
+package kr.ac.ctc.kopo35.Dao.Test;
+
+import org.junit.jupiter.api.Test;
+
+import kr.ac.ctc.kopo35.Dao.ScoreItemDao;
+import kr.ac.ctc.kopo35.Dao.ScoreItemDaoImpl;
+import kr.ac.ctc.kopo35.Domain.ScoreItem;
+
+class ScoreItemDaoTest {
+	private ScoreItemDao scoreItemDao = new ScoreItemDaoImpl();
+	
+	@Test
+	void testInsert() {
+		ScoreItem scoreItem = new ScoreItem();
+		scoreItemDao.insertOne();
+	}
+}

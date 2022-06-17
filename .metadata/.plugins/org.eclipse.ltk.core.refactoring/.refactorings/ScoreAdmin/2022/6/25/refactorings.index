@@ -1,0 +1,33 @@
+1655361456573	Rename package 'kopo35'
+1655361673836	Rename package 'kopo35'
+1655362814081	Delete element
+1655363316088	Delete element
+1655363322515	Delete element
+1655363359581	Delete element
+1655363367861	Rename resource 'viewAl.jsp'
+1655363385517	Move 'menu.jsp' to 'webapp'
+1655363403833	Delete element
+1655363418584	Move 'inde.jsp' to 'webapp'
+1655363445825	Rename resource 'inde.jsp'
+1655363467744	Delete element
+1655363471873	Delete element
+1655364496028	Delete element
+1655364598448	Rename type 'ScoreItemServiceIimpl'
+1655364609561	Rename type 'ScoreItemServiceI'
+1655365235744	Delete element
+1655367955028	Encapsulate field 'startPageNo'
+1655371852793	Delete element
+1655375622632	Rename type 'Temp'
+1655375641137	Rename resource 'Temp.jsp'
+1655424761226	Delete element
+1655424765222	Delete element
+1655424780953	Delete elements
+1655428990619	Rename type 'ScoreItemDtoMock'
+1655432745954	Copy file
+1655432837177	Rename resource 'ExcuteUpdate.jsp'
+1655437834331	Rename resource 'updateOne.jsp'
+1655437863316	Rename resource 'ExecuteUpdate.jsp'
+1655439798015	Delete element
+1655443722075	Copy file
+1655444184438	Rename resource 'insertlForm.jsp'
+1655445948752	Copy file

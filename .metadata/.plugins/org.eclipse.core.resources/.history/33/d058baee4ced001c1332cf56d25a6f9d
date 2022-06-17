@@ -1,0 +1,16 @@
+package kr.ac.ctc.kopo35.Dto;
+
+public class Pagination {	// Pagination와 목록 조회 data dto를 합치는게 나은지? 분리하는게 나은지? 
+	private int ppPage;		// 첫 페이지 번호, 없으면 0
+	private int pPage;		// 이전 그룹 마지막 페이지 번호
+	private int nPage;		// 다음 그룹 첫 페이지 번호
+	private int nnPage;		// 마지막 페이지 번호, 없으면 0
+	private int cPage;		// 현재 페이지 번호
+	
+	private int countPerPage;	// 한 페이지 당 노출시킬 레코드 수
+	private int pageSize;		// 한 페이징 그룹에 들어가는 페이지 수
+	private int totalCount;		// 총 레코드  수
+	
+	
+	
+}

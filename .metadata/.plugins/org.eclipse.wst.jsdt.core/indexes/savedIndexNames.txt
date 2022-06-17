@@ -1,0 +1,9 @@
+INDEX VERSION 1.4+C:\KOPO\git_tracking\spring\workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+687368306.index
+1481023665.index
+169180211.index
+3039741867.index
+2332444342.index
+687368306.index
+707464886.index
+2425627050.index

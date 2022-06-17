@@ -1,0 +1,14 @@
+package kr.ac.kopo.ctc.kopo35.dao;
+
+import kr.ac.kopo.ctc.kopo35.domain.BoardItem;
+
+public interface BoardItemDao {
+	BoardItem create(BoardItem boardItem);
+	
+	BoardItem selectOne(int id);
+	
+	List<BoardItem> selectAll();
+//	read
+//	update
+//	delete
+}
