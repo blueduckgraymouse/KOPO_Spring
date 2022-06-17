@@ -129,4 +129,21 @@ class ScoreItemServiceTest {
 		assertEquals(36, pagination.getTotalPage());	// 총 페이지 수
 	}
 	
+	@Test
+	void testGetpagination6() {
+		int cPage = 1;
+		int countPerPage = 10;
+		int pageSize = 10;
+		int totalcount = 0;
+		
+		Pagination pagination = scoreItemService.getPagination(cPage, countPerPage, pageSize, totalcount);
+		
+		assertEquals(0, pagination.getStartPage());		// 첫번째 숫자
+		assertEquals(0, pagination.getLastPage());		// 마지막 숫자
+		assertEquals(0, pagination.getPpPage());		// << 해당 숫자
+		assertEquals(0, pagination.getpPage());			// < 해당 숫자
+		assertEquals(0, pagination.getnPage());			// > 해당 숫자
+		assertEquals(0, pagination.getNnPage());		// >> 해당 숫자
+		assertEquals(0, pagination.getTotalPage());		// 총 페이지 수
+	}
 }
