@@ -18,34 +18,34 @@
 		List<ScoreItem> scoreItems = scoreItemService.scoreItemSelectName(request.getParameter("name"));
 	%>
 	<div align="center">
-		<table cellspacing=1 border=1>		<!-- 테이블의 셀간 여백 1, 선 두께 1로 지정 -->
-		<tr height=40px  bgcolor=gray>		<!-- 현재 행의 높이를 40px, 배경색을 회색으로 지정 -->
-			<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+		<table cellspacing=1 border=1>		
+		<tr height=40px  bgcolor=gray>		
+			<th width=100px>				
 				이름
 			</th>
-			<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+			<th width=100px>				
 				학번
 			</th>
-			<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+			<th width=100px>			
 				국어 점수
 			</th>
-			<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+			<th width=100px>			
 				영어 점수
 			</th>
-			<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+			<th width=100px>				
 				수학 점수
 			</th>
 			</th>
-			<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+			<th width=100px>				
 				수정
 			</th>
 			</th>
-			<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+			<th width=100px>				
 				삭제
 			</th>
 		</tr>
 		<%
-			for(ScoreItem scoreItem : scoreItems) {			// ResultSet에 저장된 모든 레코드에 대하여 반복
+			for(ScoreItem scoreItem : scoreItems) {
 		%>
 			<tr height=50px>
 				<td width=50><p align='center'><%= scoreItem.getName() %></p></td>

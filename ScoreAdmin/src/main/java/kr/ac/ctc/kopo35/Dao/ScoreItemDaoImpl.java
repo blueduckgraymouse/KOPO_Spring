@@ -165,7 +165,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	}
 	
 	@Override
-	public int insertOne(ScoreItem scoreItem) {	// 파라미터 domain으로 변경
+	public int insertOne(ScoreItem scoreItem) {
 		String sql = "insert into examtable values(?, ?, ?, ?, ?)";
 		int result = 0;
 
@@ -189,7 +189,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 
 
 	@Override
-	public int updateOne(ScoreItem scoreItem) {	// 파라미터 domain으로 변경
+	public int updateOne(ScoreItem scoreItem) {
 		String sql = "update examtable set name=?, kor=?, eng=?, mat=? where studentid=?";
 		int result = 0;
 

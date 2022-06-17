@@ -20,23 +20,24 @@
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
 		List<ScoreItem> scoreItems = scoreItemService.scoreItemSelectAll(request.getParameter("cPage")).getScoreItems();
 		Pagination pagination = scoreItemService.scoreItemSelectAll(request.getParameter("cPage")).getPagination();
+		int test = 11;
 	%>
 	<div align="center">
-		<table cellspacing=1 border=1>			<!-- 테이블의 셀간 여백 1, 선 두께 1로 지정 -->
-			<tr height=40px  bgcolor=gray>		<!-- 현재 행의 높이를 40px, 배경색을 회색으로 지정 -->
-				<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+		<table cellspacing=1 border=1>			
+			<tr height=40px  bgcolor=gray>	
+				<th width=100px>	
 					이름
 				</th>
-				<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+				<th width=100px>			
 					학번
 				</th>
-				<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+				<th width=100px>			
 					국어 점수
 				</th>
-				<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+				<th width=100px>			
 					영어 점수
 				</th>
-				<th width=100px>				<!-- 현재 열의 너비를 100px로 지정 -->
+				<th width=100px>			
 					수학 점수
 				</th>			
 			</tr>
@@ -62,7 +63,7 @@
 				out.println("<a href='/ScoreAdmin/selectAll.jsp?cPage=" + pagination.getpPage() + "'>&lt;</a>");
 			}
 			
-			for (int i = pagination.getStartPage(); i <= pagination.getLastPage(); i++) {
+			for (int i = pagination.getStartPage(); i <= pagination.getLastPage() && i != 0; i++) {
 				out.println("<a href='/ScoreAdmin/selectAll.jsp?cPage=" + i + "'>"+ i + "</a>");
 			}
 		

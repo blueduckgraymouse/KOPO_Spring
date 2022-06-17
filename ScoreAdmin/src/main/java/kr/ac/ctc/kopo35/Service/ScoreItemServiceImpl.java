@@ -132,7 +132,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		pagination.setPageSize(pageSize);
 		pagination.setTotalRecordCount(totalRecordCount);
 		
-		// 레코드가 없을 경우 예외 처리
+		// 레코드가 0개 일 경우 예외 처리
 		if (totalRecordCount == 0) {
 			pagination.setStartPage(0);
 			pagination.setLastPage(0);
