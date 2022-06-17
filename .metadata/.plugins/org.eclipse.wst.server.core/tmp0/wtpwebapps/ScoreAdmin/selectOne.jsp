@@ -49,18 +49,18 @@
 		%>
 			<tr height=50px>
 				<td width=50><p align='center'><%= scoreItem.getName() %></p></td>
-				<td width=50><p align='center'><%= scoreItem.getId() %></p></td>
+				<td width=50><p align='center'><%= scoreItem.getStudentId() %></p></td>
 				<td width=50><p align='center'><%= scoreItem.getKor() %></p></td>
 				<td width=50><p align='center'><%= scoreItem.getEng() %></p></td>
 				<td width=50><p align='center'><%= scoreItem.getMat() %></p></td>
 				<td width=50>
 					<p align='center'>
-						<button onClick="location.href='/ScoreAdmin/updateForm.jsp?id=<%= scoreItem.getId() %>'">수정</button>
+						<button onClick="location.href='/ScoreAdmin/updateForm.jsp?studentId=<%= scoreItem.getStudentId() %>'">수정</button>
 					</p>
 				</td>
 				<td width=50>
 					<p align='center'>
-						<button onClick="location.href='/ScoreAdmin/deleteOne.jsp?id=<%= scoreItem.getId() %>'">삭제</button>
+						<button onClick="location.href='/ScoreAdmin/deleteOne.jsp?studentId=<%= scoreItem.getStudentId() %>'">삭제</button>
 					</p>
 				</td>
 			</tr>

@@ -14,7 +14,7 @@
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
 		boolean result = scoreItemService.scoreItemUpdateOne(
 				request.getParameter("name"),
-				request.getParameter("id"),
+				request.getParameter("studentId"),
 				request.getParameter("kor"),
 				request.getParameter("eng"),
 				request.getParameter("mat"));

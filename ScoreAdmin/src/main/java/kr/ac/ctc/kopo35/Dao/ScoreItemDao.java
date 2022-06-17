@@ -16,9 +16,9 @@ public interface ScoreItemDao {
 	
 	int selectFirstId();
 	
-	int insertOne(String name, int id, int kor, int eng, int mat);
+	int insertOne(ScoreItem scoreItem);
 	
-	int updateOne(String name, int id, int kor, int eng, int mat);
+	int updateOne(ScoreItem scoreItem);
 	
 	int deleteOne(int id);
 }

@@ -16,7 +16,7 @@
 	
 	<%
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
-		ScoreItem scoreItem = scoreItemService.scoreItemSelectId(Integer.parseInt(request.getParameter("id")));
+		ScoreItem scoreItem = scoreItemService.scoreItemSelectId(Integer.parseInt(request.getParameter("studentId")));
 	%>
 	<div align="center">
 		<form method="post" action="/ScoreAdmin/updateOne.jsp">
@@ -34,7 +34,7 @@
 						학번
 					</td>
 					<td>
-						<input type=number name="id" value="<%= scoreItem.getId() %>" readonly>
+						<input type=number name="studentId" value="<%= scoreItem.getStudentId() %>" readonly>
 					</td>			
 				</tr>		
 				<tr>

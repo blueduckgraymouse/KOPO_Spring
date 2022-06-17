@@ -57,12 +57,14 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		if ( firstId != 209901) {
 			newId = 209901;
 		}
-		return ScoreItemDao.insertOne(name, newId, Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat)) == 1 ? true : false;
+		ScoreItem scoreItem = new ScoreItem(name, newId, Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat));
+		return ScoreItemDao.insertOne(scoreItem) == 1 ? true : false;
 	}
 
 	@Override
 	public boolean scoreItemUpdateOne(String name, String id, String kor, String eng, String mat) {
-		return ScoreItemDao.updateOne(name, Integer.parseInt(id), Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat)) == 1 ? true : false;
+		ScoreItem scoreItem = new ScoreItem(name, Integer.parseInt(id), Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat));
+		return ScoreItemDao.updateOne(scoreItem) == 1 ? true : false;
 	}
 
 	@Override

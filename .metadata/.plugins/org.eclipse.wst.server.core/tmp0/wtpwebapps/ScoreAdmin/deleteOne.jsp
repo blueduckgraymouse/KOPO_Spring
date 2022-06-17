@@ -12,7 +12,7 @@
 		request.setCharacterEncoding("UTF-8");
 	
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
-		boolean result = scoreItemService.scoreItemDeleteOne(Integer.parseInt(request.getParameter("id")));
+		boolean result = scoreItemService.scoreItemDeleteOne(Integer.parseInt(request.getParameter("studentId")));
 	%>
 	<script>
 		if (<%= result %> == true) {

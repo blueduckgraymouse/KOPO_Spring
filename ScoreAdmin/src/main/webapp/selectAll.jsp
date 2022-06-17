@@ -45,7 +45,7 @@
 		%>
 			<tr>
 				<td><a href="/ScoreAdmin/selectOne.jsp?name=<%= scoreItem.getName() %>"><%= scoreItem.getName() %></a></td>
-				<td><%= scoreItem.getId() %></td>
+				<td><%= scoreItem.getStudentId() %></td>
 				<td><%= scoreItem.getKor() %></td>
 				<td><%= scoreItem.getEng() %></td>
 				<td><%= scoreItem.getMat() %></td>

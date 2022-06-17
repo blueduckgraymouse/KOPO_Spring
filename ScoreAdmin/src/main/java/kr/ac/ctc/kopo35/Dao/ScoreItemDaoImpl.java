@@ -15,7 +15,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");	
 		} catch (Exception e) {
-			throw new IllegalStateException("jdbc 드라이버 로드 실패");	// 앱을 끝냄
+			throw new IllegalStateException("jdbc 드라이버 로드 실패 : " + e.getMessage());
 		}
 	}
 	
@@ -35,7 +35,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				while (rset.next()) {
 					ScoreItem scoreItem = new ScoreItem();
 					scoreItem.setName(rset.getString("name"));
-					scoreItem.setId(rset.getInt("studentid"));
+					scoreItem.setStudentId(rset.getInt("studentid"));
 					scoreItem.setKor(rset.getInt("kor"));
 					scoreItem.setEng(rset.getInt("eng"));
 					scoreItem.setMat(rset.getInt("mat"));
@@ -86,7 +86,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				rset.next();
 					scoreItem = new ScoreItem();
 					scoreItem.setName(rset.getString("name"));
-					scoreItem.setId(rset.getInt("studentid"));
+					scoreItem.setStudentId(rset.getInt("studentid"));
 					scoreItem.setKor(rset.getInt("kor"));
 					scoreItem.setEng(rset.getInt("eng"));
 					scoreItem.setMat(rset.getInt("mat"));
@@ -112,7 +112,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				while(rset.next()) {
 					ScoreItem scoreItem = new ScoreItem();
 					scoreItem.setName(rset.getString("name"));
-					scoreItem.setId(rset.getInt("studentid"));
+					scoreItem.setStudentId(rset.getInt("studentid"));
 					scoreItem.setKor(rset.getInt("kor"));
 					scoreItem.setEng(rset.getInt("eng"));
 					scoreItem.setMat(rset.getInt("mat"));
@@ -165,7 +165,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	}
 	
 	@Override
-	public int insertOne(String name, int id, int kor, int eng, int mat) {	// 파라미터 domain으로 변경
+	public int insertOne(ScoreItem scoreItem) {	// 파라미터 domain으로 변경
 		String sql = "insert into examtable values(?, ?, ?, ?, ?)";
 		int result = 0;
 
@@ -173,11 +173,11 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
-			pstmt.setString(1, name);
-			pstmt.setInt(2, id);
-			pstmt.setInt(3, kor);
-			pstmt.setInt(4, eng);
-			pstmt.setInt(5, mat);
+			pstmt.setString(1, scoreItem.getName());
+			pstmt.setInt(2, scoreItem.getStudentId());
+			pstmt.setInt(3, scoreItem.getKor());
+			pstmt.setInt(4, scoreItem.getEng());
+			pstmt.setInt(5, scoreItem.getMat());
 			result = pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -189,7 +189,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 
 
 	@Override
-	public int updateOne(String name, int id, int kor, int eng, int mat) {	// 파라미터 domain으로 변경
+	public int updateOne(ScoreItem scoreItem) {	// 파라미터 domain으로 변경
 		String sql = "update examtable set name=?, kor=?, eng=?, mat=? where studentid=?";
 		int result = 0;
 
@@ -197,11 +197,11 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
-			pstmt.setString(1, name);
-			pstmt.setInt(2, kor);
-			pstmt.setInt(3, eng);
-			pstmt.setInt(4, mat);
-			pstmt.setInt(5, id);
+			pstmt.setString(1, scoreItem.getName());
+			pstmt.setInt(2, scoreItem.getKor());
+			pstmt.setInt(3, scoreItem.getEng());
+			pstmt.setInt(4, scoreItem.getMat());
+			pstmt.setInt(5, scoreItem.getStudentId());
 			result = pstmt.executeUpdate();
 
 		} catch (Exception e) {
