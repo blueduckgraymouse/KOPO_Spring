@@ -11,8 +11,8 @@ import kr.ac.ctc.kopo35.Dto.ScoreItemsDto;
 public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	private ScoreItemDao ScoreItemDao = new ScoreItemDaoImpl();
-	private final int countPerPage = 15;
-	private final int pageSize = 50;
+	private final int countPerPage = 10;
+	private final int pageSize = 15;
 	
 	@Override
 	public ScoreItemsDto scoreItemSelectAll(String strCPage) {
@@ -52,6 +52,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 
 	@Override
 	public boolean scoreItemInsertOne(String name, String kor, String eng, String mat) {
+		// 209901을 첫 ID로 기준 자동 부여될 새로운 id값 계산
 		int newId = ScoreItemDao.selectNewId();
 		int firstId = ScoreItemDao.selectFirstId();
 		if ( firstId != 209901) {

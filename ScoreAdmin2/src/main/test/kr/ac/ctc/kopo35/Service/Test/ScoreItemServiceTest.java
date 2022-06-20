@@ -7,13 +7,14 @@ import org.junit.jupiter.api.Test;
 import kr.ac.ctc.kopo35.Dao.ScoreItemDao;
 import kr.ac.ctc.kopo35.Dao.Mock.ScoreItemDaoMock;
 import kr.ac.ctc.kopo35.Dto.Pagination;
+import kr.ac.ctc.kopo35.Dto.ScoreItemsDto;
 import kr.ac.ctc.kopo35.Service.ScoreItemService;
 import kr.ac.ctc.kopo35.Service.ScoreItemServiceImpl;
 
 class ScoreItemServiceTest {
 	
 	private ScoreItemService scoreItemService = new ScoreItemServiceImpl();
-	//private ScoreItemDao scoreItemDao = new ScoreItemDaoMock();
+	//private ScoreItemDao scoreItemDao = new ScoreItemDaoMock(); -> 서비스 클래스에서 의존성이 많은 메서드에 대해 테스트 할 때 적용하여 사용
 	
 	/* Pagenation unit test */
 	// Pagenation, 페이징 그룹이 1개 이상일 때
@@ -97,8 +98,8 @@ class ScoreItemServiceTest {
 		assertEquals(51, pagination.getStartPage());	// 첫번째 숫자
 		assertEquals(69, pagination.getLastPage());		// 마지막 숫자
 		assertEquals(1, pagination.getPpPage());		// << 해당 숫자
-		assertEquals(50, pagination.getpPage());			// < 해당 숫자
-		assertEquals(0, pagination.getnPage());		// > 해당 숫자
+		assertEquals(50, pagination.getpPage());		// < 해당 숫자
+		assertEquals(0, pagination.getnPage());			// > 해당 숫자
 		assertEquals(0, pagination.getNnPage());		// >> 해당 숫자
 		assertEquals(69, pagination.getTotalPage());	// 총 페이지 수
 	}
@@ -114,8 +115,8 @@ class ScoreItemServiceTest {
 		assertEquals(51, pagination.getStartPage());	// 첫번째 숫자
 		assertEquals(69, pagination.getLastPage());		// 마지막 숫자
 		assertEquals(1, pagination.getPpPage());		// << 해당 숫자
-		assertEquals(50, pagination.getpPage());			// < 해당 숫자
-		assertEquals(0, pagination.getnPage());		// > 해당 숫자
+		assertEquals(50, pagination.getpPage());		// < 해당 숫자
+		assertEquals(0, pagination.getnPage());			// > 해당 숫자
 		assertEquals(0, pagination.getNnPage());		// >> 해당 숫자
 		assertEquals(69, pagination.getTotalPage());	// 총 페이지 수
 	}
@@ -134,7 +135,7 @@ class ScoreItemServiceTest {
 		assertEquals(35, pagination.getLastPage());		// 마지막 숫자
 		assertEquals(0, pagination.getPpPage());		// << 해당 숫자
 		assertEquals(0, pagination.getpPage());			// < 해당 숫자
-		assertEquals(0, pagination.getnPage());		// > 해당 숫자
+		assertEquals(0, pagination.getnPage());			// > 해당 숫자
 		assertEquals(0, pagination.getNnPage());		// >> 해당 숫자
 		assertEquals(35, pagination.getTotalPage());	// 총 페이지 수
 	}
@@ -151,7 +152,7 @@ class ScoreItemServiceTest {
 		assertEquals(35, pagination.getLastPage());		// 마지막 숫자
 		assertEquals(0, pagination.getPpPage());		// << 해당 숫자
 		assertEquals(0, pagination.getpPage());			// < 해당 숫자
-		assertEquals(0, pagination.getnPage());		// > 해당 숫자
+		assertEquals(0, pagination.getnPage());			// > 해당 숫자
 		assertEquals(0, pagination.getNnPage());		// >> 해당 숫자
 		assertEquals(35, pagination.getTotalPage());	// 총 페이지 수
 	}
@@ -206,4 +207,5 @@ class ScoreItemServiceTest {
 		assertEquals(0, pagination.getNnPage());		// >> 해당 숫자
 		assertEquals(35, pagination.getTotalPage());	// 총 페이지 수
 	}
+	
 }

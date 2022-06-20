@@ -112,7 +112,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 			) {
 			pstmt.setString(1, Name);
 			try (ResultSet rset = pstmt.executeQuery();) {
-				while(rset.next()) {
+				while (rset.next()) {
 					ScoreItem scoreItem = new ScoreItem();
 					scoreItem.setName(rset.getString("name"));
 					scoreItem.setStudentId(rset.getInt("studentid"));
