@@ -53,7 +53,6 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	
 	@Override
 	public int selectTotalCount() {
-
 		String sql = "select count(*) from examtable";
 		int result = 0;
 		try (
@@ -74,7 +73,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	
 	@Override
 	public ScoreItem selectId(int id) {
-		String sql = "select * from examtable where studentid=?";
+		String sql = "select * from examtable where studentid=?";	
 		ScoreItem scoreItem = new ScoreItem();
 
 		try (
@@ -138,7 +137,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
-			try (ResultSet rset = pstmt.executeQuery();) {
+			try (ResultSet rset = pstmt.executeQuery()) {
 				rset.next();
 				newId = rset.getInt(1);
 			}
@@ -157,7 +156,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
-			try (ResultSet rset = pstmt.executeQuery();) {
+			try (ResultSet rset = pstmt.executeQuery()) {
 				rset.next();
 				firstId = rset.getInt(1);
 			}
@@ -234,4 +233,21 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		return result;
 	}
 	
+	@Override
+	public int deleteAll() {
+		String sql = "delete from examtable";
+		int result = 0;
+
+		try (
+				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/kopoctc", "root", "abcd1234");
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+			) {
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			throw new IllegalStateException("db 연결 실패" + e.getMessage());
+		}
+		
+		return result;
+	}
 }

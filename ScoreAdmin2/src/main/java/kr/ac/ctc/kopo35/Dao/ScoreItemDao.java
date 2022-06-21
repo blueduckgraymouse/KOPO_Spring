@@ -5,9 +5,10 @@ import java.util.List;
 import kr.ac.ctc.kopo35.Domain.ScoreItem;
 
 public interface ScoreItemDao {
-	// 조회
+	// 전체 조회
 	List<ScoreItem> selectAll(int startRecordNo, int countPerPage);
 	
+	// 상세 조회
 	ScoreItem selectId(int id);
 	
 	List<ScoreItem> selectName(String name);
@@ -27,4 +28,7 @@ public interface ScoreItemDao {
 	
 	// 삭제
 	int deleteOne(int id);
+	
+	// 리셋
+	int deleteAll();
 }

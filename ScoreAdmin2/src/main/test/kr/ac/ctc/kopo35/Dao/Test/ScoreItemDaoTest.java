@@ -91,11 +91,11 @@ class ScoreItemDaoTest {
 	@Test
 	@Order(3)
 	void testScoreItemSelectId01() {		// id로  단일 조회
-		ScoreItem scoreItem = scoreItemDao.selectId(209901);
+		ScoreItem scoreItem = scoreItemDao.selectId(209908);
 
-		assertEquals("나연", scoreItem.getName());
-		assertEquals(209901, scoreItem.getStudentId());
-		assertEquals(95, scoreItem.getKor());
+		assertEquals("채영", scoreItem.getName());
+		assertEquals(209908, scoreItem.getStudentId());
+		assertEquals(80, scoreItem.getKor());
 		assertEquals(100, scoreItem.getEng());
 		assertEquals(95, scoreItem.getMat());
 	}

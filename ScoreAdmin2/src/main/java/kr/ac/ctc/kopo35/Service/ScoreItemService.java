@@ -24,4 +24,7 @@ public interface ScoreItemService {
 	
 	// 삭제
 	boolean scoreItemDeleteOne(int id);
+	
+	// 테이블 리셋
+	boolean scoreItemsReset();
 }

@@ -54,10 +54,11 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	public boolean scoreItemInsertOne(String name, String kor, String eng, String mat) {
 		// 209901을 첫 ID로 기준 자동 부여될 새로운 id값 계산
 		int newId = ScoreItemDao.selectNewId();
-		int firstId = ScoreItemDao.selectFirstId();
+		int firstId = ScoreItemDao.selectFirstId();	
 		if ( firstId != 209901) {
 			newId = 209901;
 		}
+		
 		ScoreItem scoreItem = new ScoreItem(name, newId, Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat));
 		return ScoreItemDao.insertOne(scoreItem) == 1 ? true : false;
 	}
@@ -73,7 +74,14 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		return ScoreItemDao.deleteOne(id) == 1 ? true : false;
 	}
 	
-	
+
+	@Override
+	public boolean scoreItemsReset() {
+		int countAll = ScoreItemDao.selectTotalCount();
+		int countEffected = ScoreItemDao.deleteAll();
+		return (countAll == countEffected ? true : false);
+	}
+
 	/* 페이지 정보를 계산 하는 메서드 */
 	public Pagination getPagination(int cPage, int countPerPage, int pageSize, int totalRecordCount) {
 		Pagination pagination = new Pagination();
@@ -144,5 +152,4 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		
 		return pagination;
 	}
-
 }
