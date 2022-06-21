@@ -106,8 +106,8 @@
 					<c:when test="${noPage == scoreItemsDto.pagination.cPage}">
 						<b><a style='text-decoration: underline;' href='/ScoreAdmin/selectAll.jsp?cPage="${noPage}"'>${noPage}</a></b>
 					</c:when>
-					<c:when test="${noPage == scoreItemsDto.pagination.cPage}">
-						<a href='/ScoreAdmin/selectAll.jsp?cPage="${noPage}"'>{noPage}</a>
+					<c:when test="${noPage != scoreItemsDto.pagination.cPage}">
+						<a href='/ScoreAdmin/selectAll.jsp?cPage="${noPage}"'>${noPage}</a>
 					</c:when>
 				</c:choose>
 			</c:if>
