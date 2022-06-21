@@ -42,6 +42,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	public int selectTotalCount(Connection conn) {
 		String sql = "select count(*) from examtable";
 		int result = 0;
+		
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();
@@ -114,6 +115,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	public int selectNewId(Connection conn) {
 		String sql = "select studentid+1 from examtable where (studentid+1) not in (select studentid from examtable)";
 		int newId = 0;
+		
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
@@ -132,6 +134,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	public int selectFirstId(Connection conn) {
 		String sql = "select studentid from examtable limit 1";
 		int firstId = 0;
+		
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
@@ -142,6 +145,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		} catch (Exception e) {
 			throw new IllegalStateException("db 연결 실패" + e.getMessage());
 		}
+		
 		return firstId;
 	}
 	

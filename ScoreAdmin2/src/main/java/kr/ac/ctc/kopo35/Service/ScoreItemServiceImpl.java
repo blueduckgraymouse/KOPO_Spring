@@ -73,6 +73,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		} finally {
 			conn.close();
 		}
+		
 		return scoreItems;
 	}
 	
@@ -88,6 +89,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		} finally {
 			conn.close();
 		}
+		
 		return scoreItem;
 	}
 
@@ -138,6 +140,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		} finally {
 			conn.close();
 		}
+		
 		return result;
 	}
 
@@ -158,6 +161,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		}  finally {
 			conn.close();
 		}
+		
 		return result;
 	}
 	
@@ -204,6 +208,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		}  finally {
 			conn.close();
 		}
+		
 		return result;
 	}
 
