@@ -24,7 +24,7 @@ public interface ScoreItemService {
 	boolean scoreItemUpdateOne(String name, String id, String kor, String eng, String mat) throws SQLException;
 	
 	// 삭제
-	boolean scoreItemDeleteOne(int id)  throws SQLException;
+	boolean scoreItemDeleteOne(int id) throws SQLException;
 	
 	// 테이블 리셋
 	boolean scoreItemsReset() throws SQLException;

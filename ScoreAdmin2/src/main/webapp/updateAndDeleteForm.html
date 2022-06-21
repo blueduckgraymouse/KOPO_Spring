@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">			
+	<style>
+		table, tr, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+		td {
+			text-align : center;		
+			height : 40px;				
+		}
+		.name {
+			width : 150px;
+			height : 40px;
+		}
+		.value {
+			width : 300px;
+			height : 40px;
+		}
+		.button {
+			background-color : light gray;	
+			height : 30px;
+			width : 100px;
+			cursor : pointer;
+		}
+		input[type="text"],[type="number"] {
+			width : 200px;
+		}
+		input::-webkit-inner-spin-button {
+			appearance : none;			/* number type의 input태그 옆에 값 조절 버튼 제거 */
+		}
+	</style>
+</head>
+
+<body>
+	<div align=center >
+		<h1>성적 조회 후 정정 / 삭제</h1>
+		
+		<br>
+		
+		<!-- 학번 조회 -->
+		<form id="insert_id" method="post" action="updateAndDeleteForm.jsp" target="main">
+			<b>조회할 학번</b>&nbsp;<input type="number" name="studentId" required>	&nbsp;<input type="submit" class="button" value="조회" />
+		</form>
+		
+		<br>
+		
+		<!-- 조회한 데이터가 뿌려질 테이블 -->
+		<form id="insert_record" method="get" action="updateAndDeleteForm.jsp">
+			<table>
+				<tr>
+					<td class="name">
+						<b>이름</b>
+					</td>
+					<td class="value">
+						<input type=text name="name" readonly>
+					</td>
+				</tr>
+				<tr>
+					<td class="name">
+						<b>학번</b>
+					</td>
+					<td class="value">
+						<input type=number name="studentId" readonly>
+					</td>			
+				</tr>		
+				<tr>
+					<td class="name">
+						<b>국어</b>
+					</td>
+					<td class="value">
+						<input type=number name="kor" readonly>
+					</td>			
+				</tr>		
+				<tr>
+					<td class="name">
+						<b>영어</b>
+					</td>
+					<td class="value">
+						<input type=number name="eng" readonly>
+					</td>			
+				</tr>		
+				<tr>
+					<td class="name">
+						<b>수학</b>
+					</td>
+					<td class="value">
+						<input type=number name="mat" readonly>
+					</td>			
+				</tr>		
+			</table>
+		</form>
+	</div>
+	
+</body>
+</html>

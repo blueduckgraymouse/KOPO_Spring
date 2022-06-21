@@ -28,7 +28,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	@Override
 	public ScoreItemsDto scoreItemSelectAll(String strCPage) throws SQLException {
-		ScoreItemsDto scoreItemsDto = new ScoreItemsDto();
+		ScoreItemsDto scoreItemsDto = null;
 		
 		// 현재 페이지 번호 null 체크
 		int cPage = 0;
@@ -43,15 +43,14 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 			// 레코드 목록 조회
 			int startRecordNo = (cPage - 1) * countPerPage;
-			List<ScoreItem> ScoreItems = ScoreItemDao.selectAll(conn, startRecordNo, countPerPage);
+			List<ScoreItem> scoreItems = ScoreItemDao.selectAll(conn, startRecordNo, countPerPage);
 			
 			// 페이징 처리
 			int totalRecordCount = ScoreItemDao.selectTotalCount(conn);	// 전체 레코드 수 조회
 			Pagination pagination = getPagination(cPage, countPerPage, pageSize, totalRecordCount);
 			
 			// DTO에 저장
-			scoreItemsDto.setScoreItems(ScoreItems);
-			scoreItemsDto.setPagination(pagination);
+			scoreItemsDto = new ScoreItemsDto(scoreItems, pagination);
 		} catch (Exception e) {
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
