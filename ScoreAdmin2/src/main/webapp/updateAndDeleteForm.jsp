@@ -9,6 +9,8 @@
 
 <head>
 <meta charset="UTF-8">
+	<title>수정</title>
+	
 	<style>
 		table, tr, td {
 			border: 1px solid black;

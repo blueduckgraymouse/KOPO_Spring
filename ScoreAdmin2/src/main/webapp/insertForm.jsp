@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>입력</title>
+	
 	<style>
 		table, tr, td {
 			border: 1px solid black;	
@@ -79,7 +80,9 @@
 					</td>			
 				</tr>		
 			</table>
+			
 			<br><br>
+			
 			<input type=submit class="button" onsubmit="checkValidation(this.form);" value="저장" />	
 			<!-- <button class="button" onclick="return checkValidation(this.form);">저장</button> -->
 						<!-- [이슈] submit으로 하면 유효성이 안되고 button으로 하면 index.html에서 나눈 target을 lost --> 

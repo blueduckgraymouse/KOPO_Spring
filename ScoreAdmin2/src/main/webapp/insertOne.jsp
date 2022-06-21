@@ -9,6 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>수정 실행</title>
+	
 	<%
 		request.setCharacterEncoding("UTF-8");
 	
@@ -23,6 +24,7 @@
 		context.setAttribute("result", result);
 		context.setAttribute("name", request.getParameter("name"));
 	%>
+	
 	<script>
 		if (${result}) {
 			alert("입력 성공");

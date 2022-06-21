@@ -9,6 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>수정 실행</title>
+	
 	<%
 		request.setCharacterEncoding("UTF-8");
 	
