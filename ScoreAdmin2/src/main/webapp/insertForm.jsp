@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page errorPage="./error.jsp" %>					<!-- 디렉티브 태그를 이용하여 에러 발생시 호출할 페이지 지정-->
 <!DOCTYPE html>
 
 <html>
@@ -80,8 +80,9 @@
 				</tr>		
 			</table>
 			<br><br>
-			<input type=submit class="button" onsubmit="checkValidation(this.form);" value="저장" />
-			<!-- <button class="button" onclick="return checkValidation(this.form);">저장</button> -->  <!-- form안의 button 태그는 submit으로 동작 -->
+			<input type=submit class="button" onsubmit="checkValidation(this.form);" value="저장" />	
+			<!-- <button class="button" onclick="return checkValidation(this.form);">저장</button> -->
+						<!-- [이슈] submit으로 하면 유효성이 안되고 button으로 하면 index.html에서 나눈 target을 lost --> 
 			<input type="button" class="button" onclick="location.href='/ScoreAdmin/selectAll.jsp'" value="취소">
 		</form>
 	</div>

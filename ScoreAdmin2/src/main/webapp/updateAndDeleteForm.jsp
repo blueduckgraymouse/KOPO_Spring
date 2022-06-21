@@ -1,8 +1,8 @@
 <%@page import="kr.ac.ctc.kopo35.Domain.ScoreItem"%>
 <%@page import="kr.ac.ctc.kopo35.Service.ScoreItemServiceImpl"%>
 <%@page import="kr.ac.ctc.kopo35.Service.ScoreItemService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page errorPage="./error.jsp" %>					<!-- 디렉티브 태그를 이용하여 에러 발생시 호출할 페이지 지정-->
 <!DOCTYPE html>
 
 <html>
@@ -54,6 +54,9 @@
 	<%
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
 		ScoreItem scoreItem = scoreItemService.scoreItemSelectId(Integer.parseInt(request.getParameter("studentId")));
+		
+		ServletContext context = getServletContext();
+		context.setAttribute("scoreItem", scoreItem);
 	%>
 	<div align=center >
 		<h1>성적 조회 후 정정 / 삭제</h1>
@@ -73,7 +76,7 @@
 						이름
 					</td>
 					<td class="value">
-						<input type=text name="name" id="name" value="<%= scoreItem.getName() %>" class="inputs">
+						<input type=text name="name" id="name" value="${scoreItem.name}" class="inputs">
 					</td>
 				</tr>
 				<tr>
@@ -81,7 +84,7 @@
 						학번
 					</td>
 					<td class="value">
-						<input type=number name="studentId" id="studentId" value="<%= scoreItem.getStudentId() %>" class="inputs" readOnly>
+						<input type=number name="studentId" id="studentId" value="${scoreItem.studentId}" class="inputs" readOnly>
 					</td>																<!-- 학번은 pk이므로 항상 readOnly -->
 				</tr>
 				<tr>
@@ -89,7 +92,7 @@
 						국어
 					</td>
 					<td class="value">
-						<input type=number name="kor" id="kor" value="<%= scoreItem.getKor() %>" class="inputs">
+						<input type=number name="kor" id="kor" value="${scoreItem.kor}" class="inputs">
 					</td>
 				</tr>		
 				<tr>
@@ -97,7 +100,7 @@
 						영어
 					</td>
 					<td class="value">
-						<input type=number name="eng" id=eng value="<%= scoreItem.getEng() %>" class="inputs">
+						<input type=number name="eng" id=eng value="${scoreItem.eng}" class="inputs">
 					</td>
 				</tr>
 				<tr>
@@ -105,7 +108,7 @@
 						수학
 					</td>
 					<td class="value">
-						<input type=number name="mat" id="mat" value="<%= scoreItem.getMat() %>" class="inputs">
+						<input type=number name="mat" id="mat" value="${scoreItem.mat}" class="inputs">
 					</td>			
 				</tr>		
 			</table>

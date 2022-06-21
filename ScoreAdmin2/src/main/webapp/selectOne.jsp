@@ -3,6 +3,8 @@
 <%@page import="kr.ac.ctc.kopo35.Service.ScoreItemService"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page errorPage="./error.jsp" %>					<!-- 디렉티브 태그를 이용하여 에러 발생시 호출할 페이지 지정-->
 <!DOCTYPE html>
 <html>
 
@@ -37,7 +39,11 @@
 	<%
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
 		List<ScoreItem> scoreItems = scoreItemService.scoreItemSelectName(request.getParameter("name"));
+		
+		ServletContext context = getServletContext();
+		context.setAttribute("scoreItems", scoreItems);
 	%>
+	
 	<div align="center">
 		<h1>성적 조회</h1>
 		
@@ -64,24 +70,20 @@
 				수정/삭제
 			</th>
 		</tr>
-		<%
-			for(ScoreItem scoreItem : scoreItems) {
-		%>
+			<c:forEach var="scoreItem" items="${scoreItems}">
 			<tr>
-				<td><p class="center"><%= scoreItem.getName() %></p></td>
-				<td><p class="center"><%= scoreItem.getStudentId() %></p></td>
-				<td><p class="center"><%= scoreItem.getKor() %></p></td>
-				<td><p class="center"><%= scoreItem.getEng() %></p></td>
-				<td><p class="center"><%= scoreItem.getMat() %></p></td>
+				<td><p class="center">${scoreItem.name}</p></td>
+				<td><p class="center">${scoreItem.studentId}</p></td>
+				<td><p class="center">${scoreItem.kor}</p></td>
+				<td><p class="center">${scoreItem.eng}</p></td>
+				<td><p class="center">${scoreItem.mat}</p></td>
 				<td>
 					<p class="center">
-						<button class="button" onClick="location.href='/ScoreAdmin/updateAndDeleteForm.jsp?studentId=<%= scoreItem.getStudentId() %>'">수정/삭제</button>
+						<button class="button" onClick="location.href='/ScoreAdmin/updateAndDeleteForm.jsp?studentId=${scoreItem.studentId}'">수정/삭제</button>
 					</p>
 				</td>
 			</tr>
-		<%
-			}
-		%>
+			</c:forEach>
 		</table>
 	</div>
 </body>
