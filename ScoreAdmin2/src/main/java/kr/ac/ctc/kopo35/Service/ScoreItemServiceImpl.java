@@ -1,21 +1,35 @@
 package kr.ac.ctc.kopo35.Service;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
 import kr.ac.ctc.kopo35.Dao.ScoreItemDao;
 import kr.ac.ctc.kopo35.Dao.ScoreItemDaoImpl;
 import kr.ac.ctc.kopo35.Domain.ScoreItem;
+import kr.ac.ctc.kopo35.Dto.DefultRecords;
 import kr.ac.ctc.kopo35.Dto.Pagination;
 import kr.ac.ctc.kopo35.Dto.ScoreItemsDto;
 
 public class ScoreItemServiceImpl implements ScoreItemService {
-	
+	private Connection conn = null;
 	private ScoreItemDao ScoreItemDao = new ScoreItemDaoImpl();
 	private final int countPerPage = 10;
 	private final int pageSize = 15;
 	
+	public ScoreItemServiceImpl() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");	
+		} catch (Exception e) {
+			throw new IllegalStateException("jdbc 드라이버 로드 실패 : " + e.getMessage());
+		}
+	}
+	
 	@Override
-	public ScoreItemsDto scoreItemSelectAll(String strCPage) {
+	public ScoreItemsDto scoreItemSelectAll(String strCPage) throws SQLException {
+		ScoreItemsDto scoreItemsDto = new ScoreItemsDto();
+		
 		// 현재 페이지 번호 null 체크
 		int cPage = 0;
 		if (strCPage == null) {
@@ -24,62 +38,174 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 			cPage = Integer.parseInt(strCPage);
 		}
 		
-		// 레코드 목록 조회
-		ScoreItemsDto scoreItemsDto = new ScoreItemsDto();
-		int startRecordNo = (cPage - 1) * countPerPage;
+		// DAO
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+			// 레코드 목록 조회
+			int startRecordNo = (cPage - 1) * countPerPage;
+			List<ScoreItem> ScoreItems = ScoreItemDao.selectAll(conn, startRecordNo, countPerPage);
+			
+			// 페이징 처리
+			int totalRecordCount = ScoreItemDao.selectTotalCount(conn);	// 전체 레코드 수 조회
+			Pagination pagination = getPagination(cPage, countPerPage, pageSize, totalRecordCount);
+			
+			// DTO에 저장
+			scoreItemsDto.setScoreItems(ScoreItems);
+			scoreItemsDto.setPagination(pagination);
+		} catch (Exception e) {
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		} finally {
+			conn.close();
+		}
 		
-		// 페이징 처리
-		List<ScoreItem> ScoreItems = ScoreItemDao.selectAll(startRecordNo, countPerPage);
-		int totalRecordCount = ScoreItemDao.selectTotalCount();	// 전체 레코드 수 조회
-		Pagination pagination = getPagination(cPage, countPerPage, pageSize, totalRecordCount);
-		
-		scoreItemsDto.setScoreItems(ScoreItems);
-		scoreItemsDto.setPagination(pagination);
-
 		return scoreItemsDto;
 	}
 
 	
 	@Override
-	public List<ScoreItem> scoreItemSelectName(String name) {
-		return ScoreItemDao.selectName(name);
+	public List<ScoreItem> scoreItemSelectName(String name) throws SQLException {
+		List<ScoreItem> scoreItems = null;
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+			scoreItems = ScoreItemDao.selectName(conn, name);
+		} catch (Exception e) {
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		} finally {
+			conn.close();
+		}
+		return scoreItems;
 	}
 	
 	@Override
-	public ScoreItem scoreItemSelectId(int id) {
-		return ScoreItemDao.selectId(id);
+	public ScoreItem scoreItemSelectId(int id) throws SQLException {
+		ScoreItem scoreItem = null;
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+			scoreItem = ScoreItemDao.selectId(conn, id);
+		} catch (Exception e) {
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		} finally {
+			conn.close();
+		}
+		return scoreItem;
 	}
 
 	@Override
-	public boolean scoreItemInsertOne(String name, String kor, String eng, String mat) {
-		// 209901을 첫 ID로 기준 자동 부여될 새로운 id값 계산
-		int newId = ScoreItemDao.selectNewId();
-		int firstId = ScoreItemDao.selectFirstId();	
-		if ( firstId != 209901) {
-			newId = 209901;
+	public boolean scoreItemInsertOne(String name, String kor, String eng, String mat) throws SQLException {
+		boolean result = false;
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+			conn.setAutoCommit(false);
+			
+			// 209901을 첫 ID로 기준 자동 부여될 새로운 id값 계산
+			int newId = ScoreItemDao.selectNewId(conn);
+			int firstId = ScoreItemDao.selectFirstId(conn);	
+			if ( firstId != 209901) {
+				newId = 209901;
+			}
+			
+			ScoreItem scoreItem = new ScoreItem(name, newId, Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat));
+			result = ScoreItemDao.insertOne(conn, scoreItem) == 1 ? true : false;
+			
+			conn.commit();
+		} catch (Exception e) {
+			conn.rollback();
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		} finally {
+			conn.close();
 		}
 		
-		ScoreItem scoreItem = new ScoreItem(name, newId, Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat));
-		return ScoreItemDao.insertOne(scoreItem) == 1 ? true : false;
+		return result;
 	}
 
 	@Override
-	public boolean scoreItemUpdateOne(String name, String id, String kor, String eng, String mat) {
-		ScoreItem scoreItem = new ScoreItem(name, Integer.parseInt(id), Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat));
-		return ScoreItemDao.updateOne(scoreItem) == 1 ? true : false;
+	public boolean scoreItemUpdateOne(String name, String id, String kor, String eng, String mat) throws SQLException {
+		boolean result = false;
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+			conn.setAutoCommit(false);
+			
+			ScoreItem scoreItem = new ScoreItem(name, Integer.parseInt(id), Integer.parseInt(kor), Integer.parseInt(eng), Integer.parseInt(mat));
+			result = ScoreItemDao.updateOne(conn, scoreItem) == 1 ? true : false;
+			
+			conn.commit();
+		} catch (Exception e) {
+			conn.rollback();
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		} finally {
+			conn.close();
+		}
+		return result;
 	}
 
 	@Override
-	public boolean scoreItemDeleteOne(int id) {
-		return ScoreItemDao.deleteOne(id) == 1 ? true : false;
+	public boolean scoreItemDeleteOne(int id) throws SQLException {
+		boolean result = false;
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+			conn.setAutoCommit(false);
+			
+			result = ScoreItemDao.deleteOne(conn, id) == 1 ? true : false;
+			
+			conn.commit();
+		} catch (Exception e) {
+			conn.close();
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		}  finally {
+			conn.close();
+		}
+		return result;
 	}
 	
-
 	@Override
-	public boolean scoreItemsReset() {
-		int countAll = ScoreItemDao.selectTotalCount();
-		int countEffected = ScoreItemDao.deleteAll();
-		return (countAll == countEffected ? true : false);
+	public boolean scoreItemsReset() throws SQLException {
+		int countInserted = 0;
+		boolean result = false;
+		DefultRecords defultRecords = new DefultRecords();
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+			conn.setAutoCommit(false);
+			
+			// 기존 레코드 삭제
+			ScoreItemDao.deleteAll(conn);
+			int countTotal = ScoreItemDao.selectTotalCount(conn);
+			
+			// 기본 레코드 입력
+			if (countTotal == 0) {
+				for (int i = 0; i < defultRecords.getName().length; i++) {
+					ScoreItem scoreItem = new ScoreItem(defultRecords.getName()[i],
+							defultRecords.getStudentId()[i],
+							defultRecords.getKor()[i],
+							defultRecords.getEng()[i],
+							defultRecords.getMat()[i]
+							);
+					countInserted += ScoreItemDao.insertOne(conn, scoreItem);
+				}
+				
+				if (countInserted == defultRecords.getName().length) {
+					conn.commit();
+					result = true;
+				} else {
+					conn.rollback();
+					result = false;
+				}
+			} else {
+				conn.rollback();
+				result = false;
+			}
+		} catch (Exception e) {
+			conn.rollback();
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		}  finally {
+			conn.close();
+		}
+		return result;
 	}
 
 	/* 페이지 정보를 계산 하는 메서드 */

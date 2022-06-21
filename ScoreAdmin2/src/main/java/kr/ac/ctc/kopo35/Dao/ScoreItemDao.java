@@ -1,34 +1,35 @@
 package kr.ac.ctc.kopo35.Dao;
 
+import java.sql.Connection;
 import java.util.List;
 
 import kr.ac.ctc.kopo35.Domain.ScoreItem;
 
 public interface ScoreItemDao {
 	// 전체 조회
-	List<ScoreItem> selectAll(int startRecordNo, int countPerPage);
+	List<ScoreItem> selectAll(Connection conn, int startRecordNo, int countPerPage);
 	
 	// 상세 조회
-	ScoreItem selectId(int id);
+	ScoreItem selectId(Connection conn, int id);
 	
-	List<ScoreItem> selectName(String name);
+	List<ScoreItem> selectName(Connection conn, String name);
 	
-	int selectTotalCount();
+	int selectTotalCount(Connection conn);
 	
 	// 입력
-	int selectNewId();
+	int selectNewId(Connection conn);
 	
-	int selectFirstId();
+	int selectFirstId(Connection conn);
 	
-	int insertOne(ScoreItem scoreItem);
+	int insertOne(Connection conn, ScoreItem scoreItem);
 	
 	// 수정
-	int updateOne(ScoreItem scoreItem);
+	int updateOne(Connection conn, ScoreItem scoreItem);
 	
 	
 	// 삭제
-	int deleteOne(int id);
+	int deleteOne(Connection conn, int id);
 	
 	// 리셋
-	int deleteAll();
+	int deleteAll(Connection conn);
 }

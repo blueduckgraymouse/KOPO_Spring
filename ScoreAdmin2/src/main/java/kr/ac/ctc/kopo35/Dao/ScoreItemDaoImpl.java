@@ -10,36 +10,23 @@ import java.util.List;
 import kr.ac.ctc.kopo35.Domain.ScoreItem;
 
 public class ScoreItemDaoImpl implements ScoreItemDao {
-
-	public ScoreItemDaoImpl() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");	
-		} catch (Exception e) {
-			throw new IllegalStateException("jdbc 드라이버 로드 실패 : " + e.getMessage());
-		}
-	}
-	
-	
 	@Override
-	public List<ScoreItem> selectAll(int startRecordNo, int countPerPage) {
+	public List<ScoreItem> selectAll(Connection conn, int startRecordNo, int countPerPage) {
 		String sql = "select * from examtable limit ?, ?";
 		List<ScoreItem> ScoreItems = new ArrayList<ScoreItem>();
 
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			pstmt.setInt(1, startRecordNo);
 			pstmt.setInt(2, countPerPage);
 			try (ResultSet rset = pstmt.executeQuery();) {
 				while (rset.next()) {
-					ScoreItem scoreItem = new ScoreItem();
-					scoreItem.setName(rset.getString("name"));
-					scoreItem.setStudentId(rset.getInt("studentid"));
-					scoreItem.setKor(rset.getInt("kor"));
-					scoreItem.setEng(rset.getInt("eng"));
-					scoreItem.setMat(rset.getInt("mat"));
-					
+					ScoreItem scoreItem = new ScoreItem(rset.getString("name"),
+														rset.getInt("studentid"),
+														rset.getInt("kor"),
+														rset.getInt("eng"),
+														rset.getInt("mat"));						
 					ScoreItems.add(scoreItem);
 				}
 			}
@@ -52,11 +39,10 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 
 	
 	@Override
-	public int selectTotalCount() {
+	public int selectTotalCount(Connection conn) {
 		String sql = "select count(*) from examtable";
 		int result = 0;
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();
 			) {
@@ -72,25 +58,23 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	
 	
 	@Override
-	public ScoreItem selectId(int id) {
+	public ScoreItem selectId(Connection conn, int id) {
 		String sql = "select * from examtable where studentid=?";	
 		ScoreItem scoreItem = new ScoreItem();
 
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			pstmt.setInt(1, id);
 			try (ResultSet rset = pstmt.executeQuery();) {
 				if(rset.next()) {
-					scoreItem = new ScoreItem();
-					scoreItem.setName(rset.getString("name"));
-					scoreItem.setStudentId(rset.getInt("studentid"));
-					scoreItem.setKor(rset.getInt("kor"));
-					scoreItem.setEng(rset.getInt("eng"));
-					scoreItem.setMat(rset.getInt("mat"));
+					scoreItem = new ScoreItem(rset.getString("name"),
+											rset.getInt("studentid"),
+											rset.getInt("kor"),
+											rset.getInt("eng"),
+											rset.getInt("mat"));
 				} else {
-					scoreItem.setName("해당 학번 없음");
+					scoreItem = new ScoreItem("해당 학번 없음");
 				}
 			}
 		} catch (Exception e) {
@@ -101,24 +85,21 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	}
 	
 	@Override
-	public List<ScoreItem> selectName(String Name) {
+	public List<ScoreItem> selectName(Connection conn, String Name) {
 		String sql = "select * from examtable where Name=?";
 		List<ScoreItem> ScoreItems = new ArrayList<ScoreItem>();
 
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			pstmt.setString(1, Name);
 			try (ResultSet rset = pstmt.executeQuery();) {
 				while (rset.next()) {
-					ScoreItem scoreItem = new ScoreItem();
-					scoreItem.setName(rset.getString("name"));
-					scoreItem.setStudentId(rset.getInt("studentid"));
-					scoreItem.setKor(rset.getInt("kor"));
-					scoreItem.setEng(rset.getInt("eng"));
-					scoreItem.setMat(rset.getInt("mat"));
-					
+					ScoreItem scoreItem = new ScoreItem(rset.getString("name"),
+														rset.getInt("studentid"),
+														rset.getInt("kor"),
+														rset.getInt("eng"),
+														rset.getInt("mat"));	
 					ScoreItems.add(scoreItem);
 				}
 			}
@@ -130,11 +111,10 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	}
 
 	@Override
-	public int selectNewId() {
+	public int selectNewId(Connection conn) {
 		String sql = "select studentid+1 from examtable where (studentid+1) not in (select studentid from examtable)";
 		int newId = 0;
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			try (ResultSet rset = pstmt.executeQuery()) {
@@ -149,11 +129,10 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	}
 
 	@Override
-	public int selectFirstId() {
+	public int selectFirstId(Connection conn) {
 		String sql = "select studentid from examtable limit 1";
 		int firstId = 0;
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			try (ResultSet rset = pstmt.executeQuery()) {
@@ -167,12 +146,11 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	}
 	
 	@Override
-	public int insertOne(ScoreItem scoreItem) {
+	public int insertOne(Connection conn, ScoreItem scoreItem) {
 		String sql = "insert into examtable values(?, ?, ?, ?, ?)";
 		int result = 0;
 
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			pstmt.setString(1, scoreItem.getName());
@@ -191,12 +169,11 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 
 
 	@Override
-	public int updateOne(ScoreItem scoreItem) {
+	public int updateOne(Connection conn, ScoreItem scoreItem) {
 		String sql = "update examtable set name=?, kor=?, eng=?, mat=? where studentid=?";
 		int result = 0;
 
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			pstmt.setString(1, scoreItem.getName());
@@ -215,12 +192,11 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 
 
 	@Override
-	public int deleteOne(int id) {
+	public int deleteOne(Connection conn, int id) {
 		String sql = "delete from examtable where studentid=?";
 		int result = 0;
 
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			pstmt.setInt(1, id);
@@ -234,12 +210,11 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	}
 	
 	@Override
-	public int deleteAll() {
+	public int deleteAll(Connection conn) {
 		String sql = "delete from examtable";
 		int result = 0;
 
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/kopoctc", "root", "abcd1234");
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 			) {
 			result = pstmt.executeUpdate();
