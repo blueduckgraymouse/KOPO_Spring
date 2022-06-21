@@ -43,7 +43,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
 			// 레코드 목록 조회
 			int startRecordNo = (cPage - 1) * countPerPage;
-			List<ScoreItem> scoreItems = ScoreItemDao.selectAll(conn, startRecordNo, countPerPage);
+			List<ScoreItem> scoreItems = ScoreItemDao.selectAll(conn, startRecordNo, countPerPage); 
 			
 			// 페이징 처리
 			int totalRecordCount = ScoreItemDao.selectTotalCount(conn);	// 전체 레코드 수 조회
@@ -77,6 +77,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		return scoreItems;
 	}
 	
+	
 	@Override
 	public ScoreItem scoreItemSelectId(int id) throws SQLException {
 		ScoreItem scoreItem = null;
@@ -92,6 +93,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		
 		return scoreItem;
 	}
+	
 
 	@Override
 	public boolean scoreItemInsertOne(String name, String kor, String eng, String mat) throws SQLException {
@@ -122,6 +124,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		return result;
 	}
 
+	
 	@Override
 	public boolean scoreItemUpdateOne(String name, String id, String kor, String eng, String mat) throws SQLException {
 		boolean result = false;
@@ -144,6 +147,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		return result;
 	}
 
+	
 	@Override
 	public boolean scoreItemDeleteOne(int id) throws SQLException {
 		boolean result = false;
@@ -164,6 +168,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		
 		return result;
 	}
+	
 	
 	@Override
 	public boolean scoreItemsReset() throws SQLException {
@@ -212,6 +217,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		return result;
 	}
 
+	
 	/* 페이지 정보를 계산 하는 메서드 */
 	public Pagination getPagination(int cPage, int countPerPage, int pageSize, int totalRecordCount) {
 		Pagination pagination = new Pagination();

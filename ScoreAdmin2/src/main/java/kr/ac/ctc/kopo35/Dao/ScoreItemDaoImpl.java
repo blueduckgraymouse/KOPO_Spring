@@ -1,7 +1,6 @@
 package kr.ac.ctc.kopo35.Dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -85,6 +84,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		return scoreItem;
 	}
 	
+	
 	@Override
 	public List<ScoreItem> selectName(Connection conn, String Name) {
 		String sql = "select * from examtable where Name=?";
@@ -111,6 +111,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		return ScoreItems;
 	}
 
+	
 	@Override
 	public int selectNewId(Connection conn) {
 		String sql = "select studentid+1 from examtable where (studentid+1) not in (select studentid from examtable)";
@@ -130,6 +131,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		return newId;
 	}
 
+	
 	@Override
 	public int selectFirstId(Connection conn) {
 		String sql = "select studentid from examtable limit 1";
@@ -148,6 +150,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		
 		return firstId;
 	}
+	
 	
 	@Override
 	public int insertOne(Connection conn, ScoreItem scoreItem) {
@@ -212,6 +215,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 		
 		return result;
 	}
+	
 	
 	@Override
 	public int deleteAll(Connection conn) {

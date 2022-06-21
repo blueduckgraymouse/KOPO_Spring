@@ -10,11 +10,8 @@ import kr.ac.ctc.kopo35.Dto.ScoreItemsDto;
 public interface ScoreItemService {
 	// 조회
 	ScoreItemsDto scoreItemSelectAll(String cPage) throws SQLException;
-	
 	ScoreItem scoreItemSelectId(int id) throws SQLException;
-	
 	List<ScoreItem> scoreItemSelectName(String name) throws SQLException;
-
 	Pagination getPagination(int cPage, int countPerPage, int pageSize, int total) throws SQLException;
 	
 	// 입력
