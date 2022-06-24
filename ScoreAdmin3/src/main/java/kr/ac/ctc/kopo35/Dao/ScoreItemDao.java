@@ -10,8 +10,8 @@ public interface ScoreItemDao {
 	List<ScoreItem> selectAll(Connection conn, int startRecordNo, int countPerPage);
 	
 	// 상세 조회
-	ScoreItem selectId(Connection conn, int id);
-	List<ScoreItem> selectName(Connection conn, String name);
+	ScoreItem selectOne(Connection conn, int id);
+	List<ScoreItem> selectOne(Connection conn, String name);
 	int selectTotalCount(Connection conn);
 	
 	// 입력
