@@ -44,6 +44,10 @@
 		context.setAttribute("scoreItems", scoreItems);
 	%>
 	
+	<%
+		
+	%>
+	
 	<div align="center">
 		<h1>성적 조회</h1>
 		

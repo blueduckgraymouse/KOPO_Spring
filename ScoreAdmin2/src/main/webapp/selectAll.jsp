@@ -6,7 +6,6 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page errorPage="./error.jsp" %>					<!-- 디렉티브 태그를 이용하여 에러 발생시 호출할 페이지 지정-->
 <!DOCTYPE html>
 
 <html>
@@ -103,18 +102,18 @@
 			<c:if test="${noPage != 0}">
 				<c:choose>
 					<c:when test="${noPage == scoreItemsDto.pagination.cPage}">
-						<b><a style='text-decoration: underline;' href='/ScoreAdmin/selectAll.jsp?cPage="${noPage}"'>${noPage}</a></b>
+						<b><a style='text-decoration: underline;' href='/ScoreAdmin/selectAll.jsp?cPage=${noPage}'>${noPage}</a></b>
 					</c:when>
 					<c:when test="${noPage != scoreItemsDto.pagination.cPage}">
-						<a href='/ScoreAdmin/selectAll.jsp?cPage="${noPage}"'>${noPage}</a>
+						<a href='/ScoreAdmin/selectAll.jsp?cPage=${noPage}'>${noPage}</a>
 					</c:when>
 				</c:choose>
 			</c:if>
 		</c:forEach>
 		
 		<c:if test="${scoreItemsDto.pagination.nnPage != 0 && scoreItemsDto.pagination.nPage != 0}">
-			<a href='/ScoreAdmin/selectAll.jsp?cPage=${scoreItemsDto.pagination.nnPage}'>&gt;&gt;</a>
 			<a href='/ScoreAdmin/selectAll.jsp?cPage=${scoreItemsDto.pagination.nPage}'>&gt;</a>
+			<a href='/ScoreAdmin/selectAll.jsp?cPage=${scoreItemsDto.pagination.nnPage}'>&gt;&gt;</a>
 		</c:if>
 	</div>
 </body>
