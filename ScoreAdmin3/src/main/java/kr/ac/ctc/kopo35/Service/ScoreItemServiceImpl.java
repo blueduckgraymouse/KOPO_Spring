@@ -2,7 +2,6 @@ package kr.ac.ctc.kopo35.Service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
 
 import kr.ac.ctc.kopo35.Dao.ScoreItemDao;
@@ -10,15 +9,16 @@ import kr.ac.ctc.kopo35.Dao.ScoreItemDaoImpl;
 import kr.ac.ctc.kopo35.Domain.ScoreItem;
 import kr.ac.ctc.kopo35.Dto.DefultRecords;
 import kr.ac.ctc.kopo35.Dto.Pagination;
-import kr.ac.ctc.kopo35.Dto.ScoreItemsDto;
 
 public class ScoreItemServiceImpl implements ScoreItemService {
-	private Connection conn = null;
-	private ScoreItemDao ScoreItemDao = new ScoreItemDaoImpl();
-	
 	final int COUNTPERPAGE = 10;
 	final int PAGESIZE = 15;
 	
+	private Connection conn = null;
+	private ScoreItemDao ScoreItemDao = new ScoreItemDaoImpl();
+	
+	
+	// JDBC로드
 	public ScoreItemServiceImpl() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");	
@@ -27,9 +27,10 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		}
 	}
 	
+	
 	// selectOne.jsp
 	@Override
-	public List<ScoreItem> scoreItemSelectAll(String strCPage) throws SQLException {
+	public List<ScoreItem> selectAll(String strCPage) {
 		List<ScoreItem> scoreItems = null;
 		
 		int cPage = checkCPage(strCPage);
@@ -42,7 +43,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		} catch (Exception e) {
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
-			conn.close();
+			close(conn);
 		}
 		
 		return scoreItems;
@@ -51,7 +52,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	// selectOne.jsp
 	@Override
-	public List<ScoreItem> scoreItemSelectName(String name) throws SQLException {
+	public List<ScoreItem> selectOne(String name) {
 		List<ScoreItem> scoreItems = null;
 		
 		try {
@@ -60,7 +61,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		} catch (Exception e) {
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
-			conn.close();
+			close(conn);
 		}
 		
 		return scoreItems;
@@ -69,7 +70,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	// updateAndDeleteForm.jsp
 	@Override
-	public ScoreItem scoreItemSelectId(int id) throws SQLException {
+	public ScoreItem selectOne(int id) {
 		ScoreItem scoreItem = null;
 		
 		try {
@@ -78,7 +79,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		} catch (Exception e) {
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
-			conn.close();
+			close(conn);
 		}
 		
 		return scoreItem;
@@ -87,7 +88,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	// insertOne.jsp
 	@Override
-	public boolean scoreItemInsertOne(String name, String kor, String eng, String mat) throws SQLException {
+	public boolean insertOne(String name, String kor, String eng, String mat) {
 		boolean result = false;
 		
 		try {
@@ -106,10 +107,10 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 			
 			conn.commit();
 		} catch (Exception e) {
-			conn.rollback();
+			rollback(conn);
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
-			conn.close();
+			close(conn);
 		}
 		
 		return result;
@@ -118,7 +119,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	// updateOne.jsp
 	@Override
-	public boolean scoreItemUpdateOne(String name, String id, String kor, String eng, String mat) throws SQLException {
+	public boolean updateOne(String name, String id, String kor, String eng, String mat)  {
 		boolean result = false;
 		
 		try {
@@ -130,10 +131,10 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 			
 			conn.commit();
 		} catch (Exception e) {
-			conn.rollback();
+			rollback(conn);
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
-			conn.close();
+			close(conn);
 		}
 		
 		return result;
@@ -142,7 +143,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	// deleteOne.jsp
 	@Override
-	public boolean scoreItemDeleteOne(int id) throws SQLException {
+	public boolean deleteOne(int id) {
 		boolean result = false;
 		
 		try {
@@ -153,10 +154,9 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 			
 			conn.commit();
 		} catch (Exception e) {
-			conn.close();
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		}  finally {
-			conn.close();
+			close(conn);
 		}
 		
 		return result;
@@ -165,7 +165,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	//resetTable.jsp
 	@Override
-	public boolean scoreItemsReset() throws SQLException {
+	public boolean resetTable() {
 		int countInserted = 0;
 		boolean result = false;
 		DefultRecords defultRecords = new DefultRecords();
@@ -202,10 +202,10 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 				result = false;
 			}
 		} catch (Exception e) {
-			conn.rollback();
+			rollback(conn);
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		}  finally {
-			conn.close();
+			close(conn);
 		}
 		
 		return result;
@@ -217,7 +217,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	/* 전체 레코드 수 조회하는 메서드 */
 	@Override
-	public int getTotalCount() throws SQLException {
+	public int getTotalCount() {
 		int  totalCount = 0;
 		
 		try {
@@ -226,7 +226,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		} catch (Exception e) {
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
-			conn.close();
+			close(conn);
 		}
 		
 		return totalCount;
@@ -235,7 +235,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	
 	/* 페이지 정보를 리턴하는 메서드 */
 	@Override
-	public Pagination getPagination(String  strCPage) throws SQLException {	
+	public Pagination getPagination(String  strCPage) {	
 		int cPage = checkCPage(strCPage);
 		int totalRecordCount = getTotalCount();
 		
@@ -245,7 +245,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 	}
 	
 	/* 현재페에지 번호, 한페이지 당 레코드 수, 한 그룹당 페이지 개수, 총 레코드 수를 파라미터로 받아 페이지 정보를 계산하여 pagination객체로 반환하는 메서드  */
-	public Pagination calPagination(int cPage, int countPerPage, int pageSize, int totalRecordCount) throws SQLException {
+	public Pagination calPagination(int cPage, int countPerPage, int pageSize, int totalRecordCount) {
 
 		Pagination pagination = new Pagination();
 		
@@ -316,7 +316,8 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		return pagination;
 	}
 	
-	/* 클라이언트에서 파라미터로 들어온 현재 페이지 번호 null check & 형변환하는 메서드 */
+	
+	/* 파라미터로 들어온 현재 페이지 번호 null check & 형변환하는 메서드 */
 	@Override
 	public int checkCPage(String strCPage) {
 		// 현재 페이지 번호 null 체크
@@ -327,5 +328,26 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 			cPage = Integer.parseInt(strCPage);
 		}
 		return cPage;
+	}
+	
+	/* 파라미터로 들어온 connection의 트렌젝션을 rollback하는 메서드 */
+	@Override
+	public void rollback(Connection conn) {
+		try {
+			conn.rollback();
+		} catch (Exception e) {
+			throw new IllegalStateException("rollback 실패" + e.getMessage());
+		}
+	}
+	
+	
+	/* 파라미터로 들어온 connection 자원을 반납하는 메서드 */
+	@Override
+	public void close(Connection conn) {
+		try {
+			conn.close();
+		} catch (Exception e) {
+			throw new IllegalStateException("connection 자원 반납 실패" + e.getMessage());
+		}
 	}
 }

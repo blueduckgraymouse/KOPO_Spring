@@ -14,7 +14,7 @@
 		request.setCharacterEncoding("UTF-8");
 	
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
-		boolean result = scoreItemService.scoreItemInsertOne(
+		boolean result = scoreItemService.insertOne(
 				request.getParameter("name"),
 				request.getParameter("kor"),
 				request.getParameter("eng"),

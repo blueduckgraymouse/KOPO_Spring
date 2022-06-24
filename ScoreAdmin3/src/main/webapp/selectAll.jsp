@@ -1,5 +1,4 @@
 <%@page import="kr.ac.ctc.kopo35.Dto.Pagination"%>
-<%@page import="kr.ac.ctc.kopo35.Dto.ScoreItemsDto"%>
 <%@page import="kr.ac.ctc.kopo35.Dto.Pagination"%>
 <%@page import="kr.ac.ctc.kopo35.Domain.ScoreItem"%>
 <%@page import="kr.ac.ctc.kopo35.Service.ScoreItemServiceImpl"%>
@@ -50,7 +49,7 @@
 	<%
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
 	
-		List<ScoreItem> scoreItems = scoreItemService.scoreItemSelectAll(request.getParameter("cPage"));
+		List<ScoreItem> scoreItems = scoreItemService.selectAll(request.getParameter("cPage"));
 		Pagination pagination = scoreItemService.getPagination(request.getParameter("cPage"));
 		
 		ServletContext context = getServletContext();

@@ -14,7 +14,7 @@
 		request.setCharacterEncoding("UTF-8");
 	
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
-		boolean result = scoreItemService.scoreItemsReset();
+		boolean result = scoreItemService.resetTable();
 		
 		ServletContext context = getServletContext();
 		context.setAttribute("result", result);

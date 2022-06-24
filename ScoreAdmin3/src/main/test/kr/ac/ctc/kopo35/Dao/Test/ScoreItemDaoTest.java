@@ -2,6 +2,9 @@ package kr.ac.ctc.kopo35.Dao.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -16,13 +19,29 @@ import kr.ac.ctc.kopo35.Domain.ScoreItem;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ScoreItemDaoTest {
 	private ScoreItemDao scoreItemDao = new ScoreItemDaoImpl();
-	
+	Connection conn = null;
+	private static void init() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");	
+		} catch (Exception e) {
+			throw new IllegalStateException("jdbc 드라이버 로드 실패 : " + e.getMessage());
+		}
+	}
 	
 	/* 목록 조회 관련 메소드 unit test */
 	@Test
 	@Order(1)
-	void testScoreItemSelectAll01() {		// 페이지 단위 다중 조회
-		List<ScoreItem> scoreItems = scoreItemDao.selectAll(0, 9);
+	void testScoreItemSelectAll01() throws SQLException {		// 페이지 단위 다중 조회
+		List<ScoreItem> scoreItems = null;
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+		} catch (Exception e) {
+			scoreItems = scoreItemDao.selectAll(conn, 0, 9);
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		} finally {
+			conn.close();
+		}
 		
 		assertEquals("나연", scoreItems.get(0).getName());
 		assertEquals(209901, scoreItems.get(0).getStudentId());
@@ -80,8 +99,16 @@ class ScoreItemDaoTest {
 	}
 	@Test
 	@Order(2)
-	void testScoreItemSelectTotalCount01() {	// 총 레코드 수 조회
-		int count = scoreItemDao.selectTotalCount();
+	void testScoreItemSelectTotalCount01() throws SQLException {	// 총 레코드 수 조회
+		int count = 0;
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+		} catch (Exception e) {
+			count = scoreItemDao.selectTotalCount(conn);
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		} finally {
+			conn.close();
+		}
 		
 		assertEquals(9, count);
 	}
@@ -90,8 +117,17 @@ class ScoreItemDaoTest {
 	/* 상세 조회 관련 메서드 unit test */
 	@Test
 	@Order(3)
-	void testScoreItemSelectId01() {		// id로  단일 조회
-		ScoreItem scoreItem = scoreItemDao.selectId(209908);
+	void testScoreItemSelectId01() throws Exception {		// id로  단일 조회
+		ScoreItem scoreItem = null;
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
+		} catch (Exception e) {
+			scoreItem = scoreItemDao.selectId(conn, 209908);
+			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
+		} finally {
+			conn.close();
+		}
+		
 
 		assertEquals("채영", scoreItem.getName());
 		assertEquals(209908, scoreItem.getStudentId());

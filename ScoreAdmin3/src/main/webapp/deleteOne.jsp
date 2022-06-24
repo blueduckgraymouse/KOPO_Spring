@@ -14,7 +14,7 @@
 		request.setCharacterEncoding("UTF-8");
 	
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
-		boolean result = scoreItemService.scoreItemDeleteOne(Integer.parseInt(request.getParameter("studentId")));
+		boolean result = scoreItemService.deleteOne(Integer.parseInt(request.getParameter("studentId")));
 		
 		ServletContext context = getServletContext();
 		context.setAttribute("result", result);

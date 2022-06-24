@@ -38,7 +38,7 @@
 <body>
 	<%
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
-		List<ScoreItem> scoreItems = scoreItemService.scoreItemSelectName(request.getParameter("name"));
+		List<ScoreItem> scoreItems = scoreItemService.selectOne(request.getParameter("name"));
 		
 		ServletContext context = getServletContext();
 		context.setAttribute("scoreItems", scoreItems);

@@ -55,7 +55,7 @@
 <body>
 	<%
 		ScoreItemService scoreItemService = new ScoreItemServiceImpl();
-		ScoreItem scoreItem = scoreItemService.scoreItemSelectId(Integer.parseInt(request.getParameter("studentId")));
+		ScoreItem scoreItem = scoreItemService.selectId(Integer.parseInt(request.getParameter("studentId")));
 		
 		ServletContext context = getServletContext();
 		context.setAttribute("scoreItem", scoreItem);
