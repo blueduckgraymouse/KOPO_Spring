@@ -57,7 +57,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
-			scoreItems = ScoreItemDao.selectName(conn, name);
+			scoreItems = ScoreItemDao.selectOne(conn, name);
 		} catch (Exception e) {
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
@@ -75,7 +75,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
-			scoreItem = ScoreItemDao.selectId(conn, id);
+			scoreItem = ScoreItemDao.selectOne(conn, id);
 		} catch (Exception e) {
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {

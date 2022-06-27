@@ -58,7 +58,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	
 	
 	@Override
-	public ScoreItem selectId(Connection conn, int id) {
+	public ScoreItem selectOne(Connection conn, int id) {
 		String sql = "select * from examtable where studentid=?";	
 		ScoreItem scoreItem = new ScoreItem();
 
@@ -86,7 +86,7 @@ public class ScoreItemDaoImpl implements ScoreItemDao {
 	
 	
 	@Override
-	public List<ScoreItem> selectName(Connection conn, String Name) {
+	public List<ScoreItem> selectOne(Connection conn, String Name) {
 		String sql = "select * from examtable where Name=?";
 		List<ScoreItem> ScoreItems = new ArrayList<ScoreItem>();
 
