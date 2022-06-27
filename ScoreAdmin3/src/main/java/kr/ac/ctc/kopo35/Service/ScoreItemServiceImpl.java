@@ -57,7 +57,7 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kopoctc", "root", "abcd1234");
-			scoreItems = ScoreItemDao.selectOne(conn, name);
+			scoreItems = ScoreItemDao.selectOne(conn, name); 
 		} catch (Exception e) {
 			throw new IllegalStateException("dao메서드 호출 실패" + e.getMessage());
 		} finally {
