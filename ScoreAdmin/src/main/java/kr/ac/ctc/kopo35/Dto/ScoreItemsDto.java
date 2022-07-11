@@ -20,6 +20,11 @@ public class ScoreItemsDto {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
+	@Override
+	public String toString() {
+		return "ScoreItemsDto [ScoreItems=" + ScoreItems + ", pagination=" + pagination + "]";
+	}
+	
 	
 	
 }

@@ -1,7 +1,0 @@
-package kr.ac.kopo.ctc.kopo35.service;
-
-public interface BoardItemService {
-	Pagination getPagination() {
-		
-	}
-}

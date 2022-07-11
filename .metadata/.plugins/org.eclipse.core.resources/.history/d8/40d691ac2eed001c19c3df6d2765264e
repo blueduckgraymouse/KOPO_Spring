@@ -1,8 +1,0 @@
-package kr.ac.kopo.ctc.kopo35.dao;
-
-public interface BoarditemDao {
-	BoardItem create(BoardItem boardItem);
-	read
-	update
-	delete
-}

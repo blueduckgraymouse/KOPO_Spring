@@ -1,6 +1,0 @@
-package kr.ac.ctc.kopo35.Dao.Mock;
-
-// mock 객체 : service에서 junit 테스트를 실행할 때  dao의 메서드로부터 return 받는 domain객체를 대신 한다.
-public class ScoreItemDaoMock {
-
-}

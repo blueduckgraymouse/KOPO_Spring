@@ -1,4 +1,0 @@
-<ul float="left">
-	<li><a herf="/ScoreAdmin/selectAll.jsp">전제 조회</a></li>
-	<li><a herf="/ScoreAdmin/selectAll.jsp">입력</a></li>
-</ul>

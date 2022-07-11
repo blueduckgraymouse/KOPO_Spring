@@ -1,7 +1,0 @@
-package kr.ac.kopo.ctc.kopo35.service;
-
-import kr.ac.kopo.ctc.kopo35.dto.Pagination;
-
-public interface BoardItemService {
-	Pagination getPagination(int pageNo, int countPerPage, int pageSize);
-}

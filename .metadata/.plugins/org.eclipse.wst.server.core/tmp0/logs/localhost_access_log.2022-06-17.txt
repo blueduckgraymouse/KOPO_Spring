@@ -487,3 +487,10 @@
 0:0:0:0:0:0:0:1 - - [17/Jun/2022:16:57:27 +0900] "GET /ScoreAdmin/selectAll.jsp HTTP/1.1" 200 2676
 0:0:0:0:0:0:0:1 - - [17/Jun/2022:16:57:28 +0900] "GET /ScoreAdmin/selectAll.jsp HTTP/1.1" 200 2676
 0:0:0:0:0:0:0:1 - - [17/Jun/2022:16:57:28 +0900] "GET /ScoreAdmin/selectAll.jsp HTTP/1.1" 200 2676
+0:0:0:0:0:0:0:1 - - [17/Jun/2022:17:13:54 +0900] "GET /ScoreAdmin/selectAll.jsp HTTP/1.1" 200 2282
+0:0:0:0:0:0:0:1 - - [17/Jun/2022:17:13:55 +0900] "GET /ScoreAdmin/selectAll.jsp HTTP/1.1" 200 2282
+0:0:0:0:0:0:0:1 - - [17/Jun/2022:17:13:56 +0900] "GET /ScoreAdmin/selectOne.jsp?name=%EB%82%98%EC%97%B0 HTTP/1.1" 200 1395
+0:0:0:0:0:0:0:1 - - [17/Jun/2022:17:13:59 +0900] "GET /ScoreAdmin/updateForm.jsp?studentId=209901 HTTP/1.1" 200 1276
+0:0:0:0:0:0:0:1 - - [17/Jun/2022:17:14:48 +0900] "GET /ScoreAdmin/updateForm.jsp?studentId=209901 HTTP/1.1" 200 1277
+0:0:0:0:0:0:0:1 - - [17/Jun/2022:17:15:02 +0900] "GET /ScoreAdmin/updateForm.jsp?studentId=209901 HTTP/1.1" 200 1276
+0:0:0:0:0:0:0:1 - - [17/Jun/2022:17:15:03 +0900] "GET /ScoreAdmin/updateForm.jsp?studentId=209901 HTTP/1.1" 200 1276

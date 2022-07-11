@@ -1,5 +1,0 @@
-package kr.ac.kopo.ctc.kopo35.service;
-
-public class BoardItemServiceImpl implements BoardItemService {
-	private BoardItemDao boarItemDao = new BoardItemDao();
-}

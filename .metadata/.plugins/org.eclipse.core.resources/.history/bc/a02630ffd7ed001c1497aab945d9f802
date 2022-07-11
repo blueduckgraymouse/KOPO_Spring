@@ -1,9 +1,0 @@
-package kr.ac.ctc.kopo35.Service;
-
-import kr.ac.ctc.kopo35.Dto.ScoreItemsDto;
-
-public interface ScoreItemService {
-	public ScoreItemsDto scoreItemSelectAll(String cPage);
-	
-	public ScoreItem
-}

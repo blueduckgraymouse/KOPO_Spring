@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="ScoreItemServiceTest" project="ScoreAdmin" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="kr.ac.ctc.kopo35.Service.Test.ScoreItemServiceTest" time="0.017" displayname="ScoreItemServiceTest" uniqueid="[engine:junit-jupiter]/[class:kr.ac.ctc.kopo35.Service.Test.ScoreItemServiceTest]">
-    <testcase name="testGetpagination2" classname="kr.ac.ctc.kopo35.Service.Test.ScoreItemServiceTest" time="0.015" displayname="testGetpagination2()" uniqueid="[engine:junit-jupiter]/[class:kr.ac.ctc.kopo35.Service.Test.ScoreItemServiceTest]/[method:testGetpagination2()]"/>
-    <testcase name="testGetpagination" classname="kr.ac.ctc.kopo35.Service.Test.ScoreItemServiceTest" time="0.001" displayname="testGetpagination()" uniqueid="[engine:junit-jupiter]/[class:kr.ac.ctc.kopo35.Service.Test.ScoreItemServiceTest]/[method:testGetpagination()]"/>
-  </testsuite>
-</testrun>

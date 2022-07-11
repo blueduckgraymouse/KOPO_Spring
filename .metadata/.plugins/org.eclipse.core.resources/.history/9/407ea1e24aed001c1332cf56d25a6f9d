@@ -1,9 +1,0 @@
-package kr.ac.ctc.kopo35.Service;
-
-import java.util.List;
-
-import kr.ac.ctc.kopo35.Domain.ScoreItem;
-
-public interface ScoreItemService {
-	public List<ScoreItem> ScoreItemSelectAll(int PageNo, int countPerPage, int pageSize);
-}

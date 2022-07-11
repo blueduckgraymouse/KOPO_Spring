@@ -1,7 +1,0 @@
-package kr.ac.ctc.kopo35.Service;
-
-import kr.ac.ctc.kopo35.Dto.ScoreItemsDto;
-
-public interface ScoreItemService {
-	public ScoreItemsDto ScoreItemSelectAll(int PageNo, int countPerPage, int pageSize);
-}

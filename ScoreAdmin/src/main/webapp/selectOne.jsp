@@ -53,7 +53,7 @@
 				<td width=50><p align='center'><%= scoreItem.getKor() %></p></td>
 				<td width=50><p align='center'><%= scoreItem.getEng() %></p></td>
 				<td width=50><p align='center'><%= scoreItem.getMat() %></p></td>
-				<td width=50>
+				<%-- <td width=50>
 					<p align='center'>
 						<button onClick="location.href='/ScoreAdmin/updateForm.jsp?studentId=<%= scoreItem.getStudentId() %>'">수정</button>
 					</p>
@@ -62,7 +62,7 @@
 					<p align='center'>
 						<button onClick="location.href='/ScoreAdmin/deleteOne.jsp?studentId=<%= scoreItem.getStudentId() %>'">삭제</button>
 					</p>
-				</td>
+				</td> --%>
 			</tr>
 		<%
 			}

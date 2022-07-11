@@ -24,7 +24,6 @@
 		context.setAttribute("result", result);
 		context.setAttribute("name", request.getParameter("name"));
 	%>
-	
 	<script>
 		if (${result}) {
 			alert("입력 성공");
