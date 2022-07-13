@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kopo.ctc.spring.board2.repository.mapper.BoardItemMapper">
+	<insert id="insertOne" parameterType="kr.kopo.ctc.spring.board2.domain.BoardItem">
+		insert
+			into
+				board_item(no, title, author, created, view)
+			values(
+				#{no}, #{title}, #{author}, sysdate(), 0);
+	</insert>
+
+	<select id="selectAll" resultType="kr.kopo.ctc.spring.board2.domain.BoardItem">
+		select
+			*
+			from
+				board_item
+		<if test="no != null">
+			where
+				no = #{no}
+		</if>
+	</select>
+	
+	<select id="selectAllByTitle" resultType="kr.kopo.ctc.spring.board2.domain.BoardItem">
+		select
+			*
+			from
+				board_item
+			where
+				title like #{title}
+	</select>
+	
+	<select id="selectOne"  resultType="kr.kopo.ctc.spring.board2.domain.BoardItem">
+		select
+			*
+			from
+				board_item
+			where
+				id = #{id}
+		</select>
+	
+	<update id="updateOne" parameterType="kr.kopo.ctc.spring.board2.domain.BoardItem">
+		update
+			board_item
+			set
+				title=#{title}, author=#{author}, no=#{no}
+			where
+				id = #{id}
+	</update>
+
+	<delete id="deleteAll">
+		delete
+			from
+				board_item
+			where
+				no = #{no}
+	</delete>
+	
+<!-- 	<delete id="delete" parameterType="kr.kopo.ctc.spring.board2.domain.BoardItem">
+		delete
+			from
+				board_item
+			where
+				1 = 1
+		<if test="no != null">
+			and no = #{no}
+		</if>
+		<if test="id != null">
+			and id = #{id}
+		</if>
+	</delete> -->
+</mapper>

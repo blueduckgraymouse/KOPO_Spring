@@ -19,4 +19,6 @@ public interface BoardItemRepository extends JpaRepository<BoardItem, Integer> {
 	
 	@Transactional
 	void deleteByNo(Integer no);
+	
+	List<BoardItem> findAllByBoardGroupId(Integer BoardGroupId);
 }
