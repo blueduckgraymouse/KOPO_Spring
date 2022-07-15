@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class BoardItem {
 	@Id
@@ -35,7 +38,8 @@ public class BoardItem {
 
 	//@ManyToOne(optional=false)
 	//@ManyToOne(optional=false, fetch=FetchType.EAGER)		// fetch=FetchType.EAGER를 설정함으로써 부모 테이블의 정보까지 조회
-	@ManyToOne(optional=false, fetch=FetchType.LAZY)		
+	@ManyToOne(optional=false, fetch=FetchType.LAZY)
+	@JsonManagedReference					// json 파싱에서 정상적으로 직렬화해야하는 필드임을 명시
 	@JoinColumn(name="boardGroupId")		// BoardItem 테이블에 추가되는 외래키 컬럼명 지정
 	private BoardGroup boardGroup;			// 실제 DB에 생성되는 외래키 컬럼은 int타입이지만 domain클래스에서 필드타입은 관께를 맺는 domain 클래스인 BoardGroup로 선언
 	
@@ -58,6 +62,16 @@ public class BoardItem {
 	}
 
 	public BoardItem(Integer no, String title, String author, Date created, Integer view, BoardGroup boardGroup) {
+		this.no = no;
+		this.title = title;
+		this.author = author;
+		this.created = created;
+		this.view = view;
+		this.boardGroup = boardGroup;
+	}
+	
+	public BoardItem(Integer id, Integer no, String title, String author, Date created, Integer view, BoardGroup boardGroup) {
+		this.id = id;
 		this.no = no;
 		this.title = title;
 		this.author = author;

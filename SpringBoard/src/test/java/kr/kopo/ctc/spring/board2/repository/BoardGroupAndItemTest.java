@@ -26,41 +26,45 @@ class BoardGroupAndItemTest {
 	@Autowired
 	private BoardItemRepository BoardItemRepository;
 	
-//	@Test
-//	@Order(1)
-//	void test1() {
-//		boardGroupRepository.deleteAll();
-//		BoardItemRepository.deleteAll();
-//		
-//		BoardGroup first = new BoardGroup("first");
-//		boardGroupRepository.save(first);
-//		BoardGroup second = new BoardGroup("second");
-//		boardGroupRepository.save(second);
-//		
-//		List<BoardGroup> list1 = boardGroupRepository.findAll();
-//		System.out.println("group확인");
-//		for (BoardGroup boardGroup : list1) {
-//			System.out.println(boardGroup.toString());
-//		}
-//		
-//		List<BoardGroup> listGroup = boardGroupRepository.findAllByName("first");
-//		BoardItem boardItem1 = new BoardItem(101, "f제목1", "f작성자1", new Date(), 0, listGroup.get(0));
-//		BoardItem boardItem2 = new BoardItem(102, "f제목2", "f작성자2", new Date(), 0, listGroup.get(0));
-//		BoardItemRepository.save(boardItem1);
-//		BoardItemRepository.save(boardItem2);
-//		
-//		listGroup = boardGroupRepository.findAllByName("second");
-//		BoardItem boardItem3 = new BoardItem(201, "s제목1", "s작성자1", new Date(), 0, listGroup.get(0));
-//		BoardItem boardItem4 = new BoardItem(202, "s제목2", "s작성자2", new Date(), 0, listGroup.get(0));
-//		BoardItemRepository.save(boardItem3);
-//		BoardItemRepository.save(boardItem4);
-//
-//		List<BoardItem> list2 = BoardItemRepository.findAll();
-//		System.out.println("item확인");
-//		for (BoardItem boardItem : list2) {
-//			System.out.println(boardItem.toString());
-//		}
-//	}
+	@Test
+	@Order(1)
+	void test1() {
+		boardGroupRepository.deleteAll();
+		BoardItemRepository.deleteAll();
+		
+		BoardGroup first = new BoardGroup("first");
+		boardGroupRepository.save(first);
+		BoardGroup second = new BoardGroup("second");
+		boardGroupRepository.save(second);
+		
+		List<BoardGroup> list1 = boardGroupRepository.findAll();
+		System.out.println("group확인");
+		for (BoardGroup boardGroup : list1) {
+			System.out.println(boardGroup.toString());
+		}
+		
+		List<BoardGroup> listGroup = boardGroupRepository.findAllByName("first");
+		BoardItem boardItem1 = new BoardItem(101, "f제목1", "f작성자1", new Date(), 0, listGroup.get(0));
+		BoardItem boardItem2 = new BoardItem(102, "f제목2", "f작성자2", new Date(), 0, listGroup.get(0));
+		BoardItem boardItem3 = new BoardItem(103, "f제목3", "f작성자3", new Date(), 0, listGroup.get(0));
+		BoardItemRepository.save(boardItem1);
+		BoardItemRepository.save(boardItem2);
+		BoardItemRepository.save(boardItem3);
+		
+		listGroup = boardGroupRepository.findAllByName("second");
+		BoardItem boardItem4 = new BoardItem(201, "s제목1", "s작성자1", new Date(), 0, listGroup.get(0));
+		BoardItem boardItem5 = new BoardItem(202, "s제목2", "s작성자2", new Date(), 0, listGroup.get(0));
+		BoardItem boardItem6 = new BoardItem(203, "s제목3", "s작성자3", new Date(), 0, listGroup.get(0));
+		BoardItemRepository.save(boardItem4);
+		BoardItemRepository.save(boardItem5);
+		BoardItemRepository.save(boardItem6);
+
+		List<BoardItem> list2 = BoardItemRepository.findAll();
+		System.out.println("item확인");
+		for (BoardItem boardItem : list2) {
+			System.out.println(boardItem.toString());
+		}
+	}
 	
 	
 	
@@ -92,27 +96,27 @@ class BoardGroupAndItemTest {
 	
 	
 	
-	/* BoardItem.java에서의 @OneToMany의 cascade=CascadeType.ALL 실습
-	 *  * 특정 레코드가 삭제 되면 연관된 테이블의 외래키 컬럼에서 그 값과 일치하는 레코드도 연쇄적으로 삭제(수정)
-	 */
-	@Test
-	@Order(4)
-	void test4() {
-		List<BoardGroup> listGroup = boardGroupRepository.findAllByName("first");
-		
-		System.out.println("삭제 전 조회");
-		List<BoardItem> BoardItemsBefore = BoardItemRepository.findAllByBoardGroupId(listGroup.get(0).getId());
-		for (BoardItem boardItem : BoardItemsBefore) {
-			System.out.println(boardItem.toString());
-		}
-		
-		boardGroupRepository.delete(listGroup.get(0));
-		
-		System.out.println("삭제 후 조회");
-		List<BoardItem> BoardItemsAfter = BoardItemRepository.findAllByBoardGroupId(listGroup.get(0).getId());
-		for (BoardItem boardItem : BoardItemsAfter) {
-			System.out.println(boardItem.toString());
-		}
-	}
+//	/* BoardItem.java에서의 @OneToMany의 cascade=CascadeType.ALL 실습
+//	 *  * 특정 레코드가 삭제 되면 연관된 테이블의 외래키 컬럼에서 그 값과 일치하는 레코드도 연쇄적으로 삭제(수정)
+//	 */
+//	@Test
+//	@Order(4)
+//	void test4() {
+//		List<BoardGroup> listGroup = boardGroupRepository.findAllByName("first");
+//		
+//		System.out.println("삭제 전 조회");
+//		List<BoardItem> BoardItemsBefore = BoardItemRepository.findAllByBoardGroupId(listGroup.get(0).getId());
+//		for (BoardItem boardItem : BoardItemsBefore) {
+//			System.out.println(boardItem.toString());
+//		}
+//		
+//		boardGroupRepository.delete(listGroup.get(0));
+//		
+//		System.out.println("삭제 후 조회");
+//		List<BoardItem> BoardItemsAfter = BoardItemRepository.findAllByBoardGroupId(listGroup.get(0).getId());
+//		for (BoardItem boardItem : BoardItemsAfter) {
+//			System.out.println(boardItem.toString());
+//		}
+//	}
 
 }

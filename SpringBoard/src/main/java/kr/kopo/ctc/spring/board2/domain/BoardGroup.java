@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class BoardGroup {
 	
@@ -26,6 +29,7 @@ public class BoardGroup {
 	//@OneToMany(cascade=CascadeType.ALL, mappedBy="BoardGroup")		// mappedBy 대상은 BoardItem클래스의 BoardGroup 필드명과 일치.
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="boardGroup")	// 패치를 미룸. 가져왔다 치고 패스. default값.
 	//@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="BoardGroup")	// 패치 즉시 로딩, 자식 테이블에 해당하는 필드까지 조회해서 가져온다.
+	@JsonBackReference					// json타입으로 클라이언트로 응답을 보낼 때 json직렬화 과정에서 순환참조가 발생. 이를 해결하기 위한 어노테이션
 	private List<BoardItem> boardItems;
 
 	
@@ -33,6 +37,11 @@ public class BoardGroup {
 	}
 	
 	public BoardGroup(String name) {
+		this.name = name;
+	}
+	
+	public BoardGroup(Integer id, String name) {
+		this.id = id;
 		this.name = name;
 	}
 	
