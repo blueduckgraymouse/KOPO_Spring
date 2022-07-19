@@ -15,11 +15,13 @@ import kr.kopo.ctc.spring.boardItem.service.BoardItemService;
 
 @Controller
 @RequestMapping(value="/boardItem")
-public class BoardItemControllerImpl {
+public class BoardItemController {
 	
 	@Autowired
 	BoardItemService boardItemService;
 
+	
+	/* 목록 조회 */
 	@RequestMapping(value="/list")
 	public String showBoardList(Model model, @RequestParam(value = "cPage", required = false) String cPage) {
 		PageDto pageDto = boardItemService.getList(cPage);
@@ -33,6 +35,8 @@ public class BoardItemControllerImpl {
 //		return "boardItemList";
 //	}
 	
+	
+	/* 단일 조회 */
 	@RequestMapping(value="/view")
 	public String showBoardItem(Model model, @RequestParam(value = "id") int id) {
 		NewsBoardItem boardItem = boardItemService.getView(id);
@@ -40,17 +44,23 @@ public class BoardItemControllerImpl {
 		return "boardItemView";
 	}
 	
+	
+	/* 입력 양식 호출 */
 	@RequestMapping(value="/insert", method = RequestMethod.GET)
 	public String showInsertForm(Model model) {
 		return "boardItemInsertForm";
 	}
 	
+	
+	/* 입력 처리 */
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
 	public String doInsert(Model model, @ModelAttribute NewsBoardItem boardItem) {
 		NewsBoardItem boardItemInserted = boardItemService.insertItem(boardItem);
 		return "redirect:/boardItem/view?id="+boardItemInserted.getId();
 	}
 	
+	
+	/* 수정 양식 호출 */
 	@RequestMapping(value="/update", method = RequestMethod.GET)
 	public String showUpdateForm(Model model, @RequestParam(value = "id") int id) {
 		NewsBoardItem boardItem = boardItemService.getView(id);
@@ -58,12 +68,16 @@ public class BoardItemControllerImpl {
 		return "boardItemUpdateForm";
 	}
 	
+	
+	/* 수정 처리 */
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public String doUpdate(Model model, @ModelAttribute NewsBoardItem boardItem) {
 		NewsBoardItem boardItemUpdated = boardItemService.updateItem(boardItem);
 		return "redirect:/boardItem/view?id="+boardItemUpdated.getId();
 	}
 	
+	
+	/* 삭제 처리 */
 	@RequestMapping(value="/delete")
 	public String doDelete(Model model, @RequestParam(value = "id") int id) {
 		boardItemService.delete(id);

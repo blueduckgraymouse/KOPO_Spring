@@ -54,7 +54,7 @@
   <div class="container">
     <jsp:include page="boardBanner.jsp"/>
 
-    <h1>댓글 등록</h1>
+    <h1>댓글 수정</h1>
 
     <form method="post" action="/replyItem/update">
       <table class="table-input">

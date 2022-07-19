@@ -1,6 +1,5 @@
 package kr.kopo.ctc.spring.boardItem.service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import kr.kopo.ctc.spring.boardItem.repository.BoardItemRepository;
 
 @Service
 public class BoardItemService {
+	
 	private final int countPerPage = 20;
 	private final int pageSize = 10;
 	
@@ -22,41 +22,30 @@ public class BoardItemService {
 	BoardItemRepository boardItemRepository;
 	
 	
+	/* 목록 조회 */
 	public PageDto getList(String cPage) {
-		int cPageNo = 0;
-		if (cPage == null) {
-			cPageNo = 0;
-		} else if (Integer.parseInt(cPage) < 1) {
-			cPageNo = 0;
-		} else if (Integer.parseInt(cPage) > 1) {
-			cPageNo = Integer.parseInt(cPage) - 1;
-		}
+		int cPageNo = checkCPage(cPage, countPerPage);
+		
 		PageRequest pageable = PageRequest.of(cPageNo, countPerPage);
-		//Page<ReplyBoardItem> BoardItems = boardItemRepository.findAll(pageable);
 		Page<NewsBoardItem> BoardItems = boardItemRepository.findAll(pageable);
+		
+
 		Pagination pagination = makePagination(cPageNo + 1, countPerPage, pageSize, (int)BoardItems.getTotalElements());
 		PageDto PageDto = new PageDto(BoardItems, pagination);
 		return PageDto;
 	}
-//	public PageDto getList(Integer cPage) {
-//		if (cPage < 1) {
-//			cPage = 0;
-//		} else if (cPage >= 1) {
-//			cPage--;
-//		}
-//		PageRequest pageable = PageRequest.of(cPage, countPerPage);
-//		Page<ReplyBoardItem> BoardItems = boardItemRepository.findAll(pageable);
-//		Pagination pagination = makePagination(cPage + 1, countPerPage, pageSize, (int)BoardItems.getTotalElements());
-//		PageDto PageDto = new PageDto(BoardItems, pagination);
-//		return PageDto;
-//	}
 	
 	
+	/* 단일 조회 */
 	public NewsBoardItem getView(int id) {
 		NewsBoardItem BoardItem = boardItemRepository.findById(id).get();
+		boardItemRepository.increaseViewcnt(id);
+		boardItemRepository.save(BoardItem);
 		return BoardItem;
 	}
 	
+	
+	/* 입력 처리 */
 	public NewsBoardItem insertItem(NewsBoardItem boardItemInput) {
 		NewsBoardItem BoardItemSave = new NewsBoardItem(
 										boardItemInput.getTitle(),
@@ -68,6 +57,8 @@ public class BoardItemService {
 		return BoardItemInserted;
 	}
 	
+	
+	/* 수정 처리 */
 	public NewsBoardItem updateItem(NewsBoardItem boardItemInput) {
 		NewsBoardItem BoardItem = boardItemRepository.findById(boardItemInput.getId()).get();
 		BoardItem.setTitle(boardItemInput.getTitle());
@@ -76,16 +67,14 @@ public class BoardItemService {
 		return BoardItemUpdated;
 	}
 	
+	
+	/* 삭제 처리 */
 	public void delete(int id) {
 		boardItemRepository.deleteById(id);
 	}
 	
-//	public BoardItem insertReply(int id, String title, String content, int rootid) {
-//
-//		return null;
-//	}
 	
-	
+	/* -------------------------------------------------------------------------------------------------- */
 	
 	
 	/* 현재페에지 번호, 한페이지 당 레코드 수, 한 그룹당 페이지 개수, 총 레코드 수를 파라미터로 받아 페이지 정보를 계산하여 pagination객체로 반환하는 메서드  */
@@ -158,5 +147,24 @@ public class BoardItemService {
 		}
 		
 		return pagination;
+	}
+	
+	
+	/* 목록 조회에서의 페이지 번호에 대한 예외 처리 */
+	public int checkCPage(String cPage, int countPerPage) {
+		int totalcount = boardItemRepository.getTotalCount();
+		int totalPage = totalcount / countPerPage + (totalcount % countPerPage > 0 ? 1 : 0);
+		int cPageNo = 0;
+		try {
+			if (Integer.parseInt(cPage) < 1) {
+				cPageNo = 0; 
+			} else if (Integer.parseInt(cPage) > 1 && Integer.parseInt(cPage) <= totalPage) {
+				cPageNo = Integer.parseInt(cPage) - 1;
+			} else {
+				cPageNo = totalPage - 1;
+			}
+		} catch(Exception e) {
+		}
+		return cPageNo;
 	}
 }

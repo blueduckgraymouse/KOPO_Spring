@@ -1,5 +1,6 @@
 package kr.kopo.ctc.spring.boardItem.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -37,13 +38,14 @@ public class NewsReplyItem {
 	public Integer getId() {
 		return id;
 	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return sdf.format(date);
 	}
 
 	public void setDate(Date date) {

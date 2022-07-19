@@ -1,5 +1,6 @@
 package kr.kopo.ctc.spring.boardItem.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -76,8 +79,9 @@ public class NewsBoardItem {
 		this.writer = writer;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return sdf.format(date);
 	}
 
 	public void setDate(Date date) {

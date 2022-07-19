@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>게시물 수정</title>
+	<title>뉴스 수정</title>
 	<style>
 	  .container {
 	    max-width: 600px;
@@ -54,7 +54,7 @@
   <div class="container">
     <jsp:include page="boardBanner.jsp"/>
 
-    <h1>공지사항 수정</h1>
+    <h1>뉴스 수정</h1>
 
     <form method="post" action="/boardItem/update">
       <table class="table-update">

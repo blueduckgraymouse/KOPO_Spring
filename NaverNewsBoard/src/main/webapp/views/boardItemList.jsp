@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ page errorPage="./gongji_error.jsp" %> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="UTF-8">
-	<title>게시물 전체 조회</title>
+	<title>네이버 뉴스</title>
 	<style>
 	  .container {
 	    max-width: 600px;
@@ -44,6 +43,7 @@
 	  }
 	  .pagination {
 	    margin:0 auto;
+	    text-align: center;
 	  }
 	</style>
 </head>
@@ -53,7 +53,7 @@
 	<div class="container">
     <jsp:include page="boardBanner.jsp"/>
 
-    <h1>공지사항</h1>
+    <h1>네이버 뉴스</h1>
 
     <table class="table-view">
       <tr class="title">
@@ -77,6 +77,10 @@
     </table>
 
     <br>
+    
+    <div class="div-button">
+      <input type="button" value="신규" onclick="window.location='/boardItem/insert'">
+    </div>
     
     <div class="pagination">
       <c:set var="pagination" value="${PageDto.pagination}"/>
@@ -102,12 +106,6 @@
 			<a href='/boardItem/list?cPage=${pagination.nPage}'>&gt;</a>
 			<a href='/boardItem/list?cPage=${pagination.nnPage}'>&gt;&gt;</a>
 		</c:if>
-    </div>
-    
-    <br>
-    
-    <div class="div-button">
-      <input type="button" value="신규" onclick="window.location='/boardItem/insert'">
     </div>
   </div>
 </body>

@@ -6,7 +6,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>게시물 상세 조회</title>
+	<title>뉴스 보기</title>
 	<style>
 	  .container {
 	    max-width: 600px;
@@ -31,10 +31,10 @@
 	    background-color: lightgrey;
 	  }
 	  .align-left {
-	    text-align: right;
+	    text-align: left;
 	  }
 	  a {
-	    color: black;
+	    color: grey;
 	    text-decoration: none;
 	  }
 	  a:hover {
@@ -52,6 +52,21 @@
 	    border: none;
 	    resize: none;
 	  }
+	  .table-reply td {
+	    width: 600px;
+	  	border : none;
+	  	font-size: 70%;
+	  }
+	  .border-top {
+	  	border-top : 10px double grey;
+	  }
+	  .display {
+	  	display: inline; 
+	  }
+	  .align-right {
+	    text-align: right;
+	  }
+	  
 	</style>
 </head>
 
@@ -60,7 +75,7 @@
 	<div class="container">
 	    <jsp:include page="boardBanner.jsp"/>
 	
-	    <h1>공지사항</h1>
+	    <h1>뉴스</h1>
 	
 	    <table class="table-view">
 	      <tr>
@@ -89,40 +104,45 @@
 	        </td>
 	      </tr>
 	    </table>
-	
 	    <br>
-	    
-	    <h3>댓글</h3>
-	    <input type="button" value="댓글 달기" onclick="location.href='/replyItem/insert?id=${boardItem.id}'">
-	    <table>
-			<c:forEach var="replyItem" items="${boardItem.newsReplyItems}">
-				<tr>
-					<td>작성자</td>
-					<td>${replyItem.writer}</td>
-				</tr>	
-				<tr>
-					<td>작성일시</td>
-					<td>${replyItem.writer}</td>
-				</tr>	
-				<tr>
-					<td>내용</td>
-					<td>${replyItem.content}</td>
-				</tr>	
-				<tr>
-					<td colspan="2">
-						<input type="button" value="댓글 수정" onclick="location.href='/replyItem/update?id=${replyItem.id}'">
-	      				<input type="button" value="댓글 삭제" onclick="location.href='/replyItem/delete?id=${replyItem.id}'">
-	      			</td>
-				</tr>	
-			</c:forEach>
-	    </table>
-	    
 	    <div class="div-button">
 	      <input type="button" value="목록" onclick="location.href='/boardItem/list'">
 	      <input type="button" value="수정" onclick="location.href='/boardItem/update?id=${boardItem.id}'">
 	      <input type="button" value="삭제" onclick="location.href='/boardItem/delete?id=${boardItem.id}'">
-	      <input type="button" value="댓글" onclick="location.href='/boardItem/insertReply?id=${boardItem.id}'">
 	    </div>
+	
+	    <br>
+	    
+	    <h3 class="display">댓글</h3>
+	    <div class="align-right"><input type="button" value="댓글 달기" onclick="location.href='/replyItem/insert?id=${boardItem.id}'"></div>
+	    <table class="table-reply">
+			<c:forEach var="replyItem" items="${boardItem.newsReplyItems}">
+				<tr>
+					<td colspan="5">
+						<hr>
+					</td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td>${replyItem.writer}</td>
+					<td>작성일시</td>
+					<td>${replyItem.date}</td>
+					<td>
+						<a href="/replyItem/update?id=${replyItem.id}">수정</a>&nbsp;
+						<a href="/replyItem/delete?id=${replyItem.id}">삭제</a>
+	      			</td>
+				</tr>
+				<tr>
+					<td colspan="5"><div class="align-left">${replyItem.content}</div></td>
+				</tr>
+				<tr>
+					<td colspan="5">
+						<hr>
+					</td>
+				</tr>
+			</c:forEach>
+	    </table>
+	    
 	</div>
 </body>
 

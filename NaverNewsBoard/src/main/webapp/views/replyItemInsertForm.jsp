@@ -66,12 +66,6 @@
           </td>
         </tr>
         <tr>
-          <td class="title"><b>제목</b></td>
-          <td colspan="3">
-            <input type="text" name="title" size="70" maxlength="70">
-          </td>
-        </tr>
-        <tr>
           <td class="title"><b>일자</b></td>
           <td colspan="3">
             <span id="current_date"></span>

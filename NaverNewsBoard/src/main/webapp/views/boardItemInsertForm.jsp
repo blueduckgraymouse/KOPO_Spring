@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>게시물 신규 등록</title>
+	<title>뉴스 신규 등록</title>
 	<style>
 	    .container {
 	      max-width: 600px;
@@ -54,7 +54,7 @@
   <div class="container">
     <jsp:include page="boardBanner.jsp"/>
 
-    <h1>게시물 등록</h1>
+    <h1>뉴스 등록</h1>
 
     <form method="post" action="/boardItem/insert">
       <table class="table-input">

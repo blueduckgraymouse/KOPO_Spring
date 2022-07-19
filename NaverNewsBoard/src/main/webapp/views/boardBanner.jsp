@@ -13,6 +13,5 @@
 
 
 <div class="menus">
-      <b class="menu"><a href="/boardItem/list">댓글 게시판</a></b></span> |
-      <b class="menu"><a href="#">초기화</a></b></span>
+      <b class="menu"><a href="/boardItem/list">뉴스 게시판</a></b>
 </div>
