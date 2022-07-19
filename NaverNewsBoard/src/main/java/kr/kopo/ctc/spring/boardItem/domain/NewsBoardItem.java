@@ -13,35 +13,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class NewsBoardItem {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer id;
 	
+	
 	@Column
 	private String title;
+	
 	
 	@Column
 	private String writer;
 	
+	
 	@Column
 	private Date date;
+	
 	
 	@Column
 	private String content;
 
+	
 	@Column
 	private Integer viewcnt;
+	
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="newsBoardItem")
 	@JsonBackReference	
 	private List<NewsReplyItem> newsReplyItems;
+	
+	
+	
+	
+	
 	
 	public NewsBoardItem() {
 		
@@ -108,7 +118,7 @@ public class NewsBoardItem {
 		return newsReplyItems;
 	}
 
-	public void setReplyItems(List<NewsReplyItem> newsReplyItems) {
+	public void setNewsReplyItems(List<NewsReplyItem> newsReplyItems) {
 		this.newsReplyItems = newsReplyItems;
 	}
 }

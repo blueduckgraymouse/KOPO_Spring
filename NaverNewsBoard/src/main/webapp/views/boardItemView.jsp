@@ -52,8 +52,10 @@
 	    border: none;
 	    resize: none;
 	  }
+	  .table-reply {
+	  	width: 600px;
+	  }
 	  .table-reply td {
-	    width: 600px;
 	  	border : none;
 	  	font-size: 70%;
 	  }
@@ -65,8 +67,7 @@
 	  }
 	  .align-right {
 	    text-align: right;
-	  }
-	  
+	  }	  
 	</style>
 </head>
 
@@ -95,6 +96,10 @@
 	        <td colspan="3">${boardItem.date}</td>
 	      </tr>
 	      <tr>
+	        <td colspan="2" class="title"><b>작성자</b></td>
+	        <td colspan="3">${boardItem.writer}</td>
+	      </tr>
+	      <tr>
 	        <td colspan="2" class="title"><b>조회수</b></td>
 	        <td colspan="3">${boardItem.viewcnt}</td>
 	      </tr>
@@ -114,32 +119,55 @@
 	    <br>
 	    
 	    <h3 class="display">댓글</h3>
-	    <div class="align-right"><input type="button" value="댓글 달기" onclick="location.href='/replyItem/insert?id=${boardItem.id}'"></div>
+	    <div class="align-right"><input type="button" value="댓글 달기" onclick="location.href='/replyItem/root/insert?id=${boardItem.id}'"></div>
 	    <table class="table-reply">
 			<c:forEach var="replyItem" items="${boardItem.newsReplyItems}">
+				<c:if test="${replyItem.id eq replyItem.rootReplyItem.id}">
 				<tr>
-					<td colspan="5">
+					<td colspan="2">
 						<hr>
 					</td>
 				</tr>
 				<tr>
-					<td>작성자</td>
-					<td>${replyItem.writer}</td>
-					<td>작성일시</td>
-					<td>${replyItem.date}</td>
-					<td>
-						<a href="/replyItem/update?id=${replyItem.id}">수정</a>&nbsp;
-						<a href="/replyItem/delete?id=${replyItem.id}">삭제</a>
-	      			</td>
+					<td colspan="2">
+						${replyItem.writer} | ${replyItem.date} | 
+						<a href="/replyItem/sub/insert?id=${replyItem.id}">답글</a> |
+						<a href="/replyItem/root/update?id=${replyItem.id}">수정</a> |
+						<a href="/replyItem/root/delete?id=${replyItem.id}">삭제</a>
+					</td>
 				</tr>
 				<tr>
-					<td colspan="5"><div class="align-left">${replyItem.content}</div></td>
+ 					<td colspan="2"><div class="align-left">${replyItem.content}</div></td>
 				</tr>
+				
+  				<c:forEach var="subReplyItem" items="${replyItem.subReplyItems}">
+ 					<c:if test="${subReplyItem.id ne replyItem.id && subReplyItem.rootReplyItem.id eq replyItem.id}">
+						<tr>
+							<td width=5%>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+							</td>
+							<td>
+								${subReplyItem.writer} | 
+								${subReplyItem.date} |
+								<a href="/replyItem/sub/update?id=${subReplyItem.id}">수정</a> |
+								<a href="/replyItem/sub/delete?id=${subReplyItem.id}">삭제</a>
+			      			</td>
+						</tr>
+						<tr>
+							<td  width=5%>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+							</td>
+							<td><div class="align-left">${subReplyItem.content}</div></td>
+						</tr>
+					</c:if>
+				</c:forEach>
+				
 				<tr>
-					<td colspan="5">
+					<td colspan="2">
 						<hr>
 					</td>
 				</tr>
+				</c:if>
 			</c:forEach>
 	    </table>
 	    

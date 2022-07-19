@@ -28,13 +28,7 @@ public class BoardItemController {
 		model.addAttribute("PageDto", pageDto);
 		return "boardItemList";
 	}
-//	@RequestMapping(value="/list")
-//	public String showBoardList(Model model, @RequestParam(value = "cPage", required = false) Integer cPage) {
-//		PageDto pageDto = gongjiService.getList(cPage);
-//		model.addAttribute("PageDto", pageDto);
-//		return "boardItemList";
-//	}
-	
+
 	
 	/* 단일 조회 */
 	@RequestMapping(value="/view")
@@ -56,7 +50,7 @@ public class BoardItemController {
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
 	public String doInsert(Model model, @ModelAttribute NewsBoardItem boardItem) {
 		NewsBoardItem boardItemInserted = boardItemService.insertItem(boardItem);
-		return "redirect:/boardItem/view?id="+boardItemInserted.getId();
+		return "redirect:/boardItem/view?id=" + boardItemInserted.getId();
 	}
 	
 	
@@ -73,7 +67,7 @@ public class BoardItemController {
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public String doUpdate(Model model, @ModelAttribute NewsBoardItem boardItem) {
 		NewsBoardItem boardItemUpdated = boardItemService.updateItem(boardItem);
-		return "redirect:/boardItem/view?id="+boardItemUpdated.getId();
+		return "redirect:/boardItem/view?id=" + boardItemUpdated.getId();
 	}
 	
 	

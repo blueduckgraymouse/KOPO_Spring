@@ -56,7 +56,7 @@
 
     <h1>댓글 등록</h1>
 
-    <form method="post" action="/replyItem/insert">
+    <form method="post" action="/replyItem/root/insert">
       <table class="table-input">
         <tr>
           <td class="title"><b>뉴스 번호</b></td>

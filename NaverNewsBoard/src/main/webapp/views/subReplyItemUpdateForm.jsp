@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>댓글 수정</title>
+	<title>답글 수정</title>
 	<style>
 	  .container {
 	    max-width: 600px;
@@ -54,33 +54,38 @@
   <div class="container">
     <jsp:include page="boardBanner.jsp"/>
 
-    <h1>댓글 수정</h1>
+    <h1>답글 수정</h1>
 
-    <form method="post" action="/replyItem/root/update">
+    <form method="post" action="/replyItem/sub/update">
       <table class="table-input">
         <tr>
-          <td class="title"><b>뉴스 번호</b></td>
+          <td class="title"><b>기사 번호</b></td>
           <td width="450px" colspan="3">
-            ${newsReplyItem.newsBoardItem.id}
-            <input type="hidden" name="id" value="${newsReplyItem.id}">
+            ${newsSubReplyItem.newsBoardItem.id}
+          </td>
+        </tr>
+        <tr>
+          <td class="title"><b>댓글 번호</b></td>
+          <td width="450px" colspan="3">
+            ${newsSubReplyItem.id}
           </td>
         </tr>
         <tr>
           <td class="title"><b>작성자</b></td>
           <td colspan="3">
-            ${newsReplyItem.writer}
+            ${newsSubReplyItem.writer}
           </td>
         </tr>
         <tr>
           <td class="title"><b>일자</b></td>
           <td colspan="3">
-            ${newsReplyItem.date}
+            ${newsSubReplyItem.date}
           </td>
         </tr>
         <tr>
           <td class="title"><b>내용</b></td>
           <td colspan="3">
-            <textarea name="content" cols="70" row="600">${newsReplyItem.content}</textarea>
+            <textarea name="content" cols="70" row="600">${newsSubReplyItem.content}</textarea>
           </td>
         </tr>
       </table>

@@ -29,7 +29,6 @@ public class BoardItemService {
 		PageRequest pageable = PageRequest.of(cPageNo, countPerPage);
 		Page<NewsBoardItem> BoardItems = boardItemRepository.findAll(pageable);
 		
-
 		Pagination pagination = makePagination(cPageNo + 1, countPerPage, pageSize, (int)BoardItems.getTotalElements());
 		PageDto PageDto = new PageDto(BoardItems, pagination);
 		return PageDto;
