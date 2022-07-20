@@ -88,8 +88,9 @@ p {
 							</div>
 							<pre class="mb-1">${replyItem.content}</pre>
 							
+							<!-- 댓글 수정 -->
 							<div id="replyUpdateForm${rootStatus.index}" class="collapse">
-								<form method="post" action="/replyItem/root/update"> <!-- 댓글 수정 -->
+								<form method="post" action="/replyItem/root/update"> 
 									<textarea name="content" style="width:100%;resize: none;" rows="6" placeholder="댓글 내용">${replyItem.content}</textarea>
 									<input type="hidden" name="id" value="${replyItem.id}">
 									<div style="text-align: right"><input type="submit" class="btn btn-primary" value="등록"></div>
@@ -100,7 +101,8 @@ p {
 								<div class="row">
 									<div class="col-1"></div>
 									<div class="col-11">
-										<form method="post" action="/replyItem/sub/insert"> <!-- 답글 등록 -->
+									 	<!-- 답글 등록 -->
+										<form method="post" action="/replyItem/sub/insert"> 
 											<input class="form-control" type="text" name="writer" placeholder="작성자" style="width:30%"> <br>
 											<textarea name="content" style="width:100%;resize: none;" rows="6" placeholder="답글 내용"></textarea>
 											<input type="hidden" name="rootReplyId" value="${replyItem.id}">
@@ -125,10 +127,11 @@ p {
 											</div>
 											<pre class="mb-1">${subReplyItem.content}</pre>
 											
+											<!-- 답글 수정 -->
 											<div id="subReplyUpdateForm${rootStatus.index}-${subStatus.index}" class="collapse">
-												<form method="post" action="/replyItem/sub/update"> <!-- 댓글 수정 -->
-													<textarea name="content" style="width:100%;resize: none;" rows="6" placeholder="댓글 내용">${replyItem.content}</textarea>
-													<input type="hidden" name="id" value="${replyItem.id}">
+												<form method="post" action="/replyItem/sub/update">
+													<textarea name="content" style="width:100%;resize: none;" rows="6" placeholder="댓글 내용">${subReplyItem.content}</textarea>
+													<input type="hidden" name="id" value="${subReplyItem.id}">
 													<div style="text-align: right"><input type="submit" class="btn btn-primary" value="등록"></div>
 												</form>
 											</div>
