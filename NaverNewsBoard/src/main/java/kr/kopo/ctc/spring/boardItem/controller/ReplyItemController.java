@@ -20,12 +20,6 @@ public class ReplyItemController {
 
 	/* 댓글 */
 
-//	/* 입력 양식 호출 */
-//	@RequestMapping(value = "/root/insert", method = RequestMethod.GET)
-//	public String showRootInsertForm(Model model, @RequestParam(value = "id") int boardId) {
-//		model.addAttribute("boardId", boardId);
-//		return "replyItemInsertForm";
-//	}
 
 	/* 입력 처리 */
 	@RequestMapping(value = "/root/insert", method = RequestMethod.POST)
@@ -35,13 +29,6 @@ public class ReplyItemController {
 		return "redirect:/boardItem/view?id=" + boardId;
 	}
 
-//	/* 수정 양식 호출 */
-//	@RequestMapping(value = "/root/update", method = RequestMethod.GET)
-//	public String showRootUpdateForm(Model model, @RequestParam(value = "id") int replyId) {
-//		NewsReplyItem newsReplyItem = ReplyItemService.getReply(replyId);
-//		model.addAttribute("newsReplyItem", newsReplyItem);
-//		return "replyItemUpdateForm";
-//	}
 
 	/* 수정 처리 */
 	@RequestMapping(value = "/root/update", method = RequestMethod.POST)
@@ -59,13 +46,6 @@ public class ReplyItemController {
 
 	/* 답글 */
 
-//	/* 입력 양식 호출 */
-//	@RequestMapping(value = "/sub/insert", method = RequestMethod.GET)
-//	public String showSubInsertForm(Model model, @RequestParam(value = "id") int replyId) {
-//		model.addAttribute("replyId", replyId);
-//		return "subReplyItemInsertForm";
-//	}
-
 	/* 입력 처리 */
 	@RequestMapping(value = "/sub/insert", method = RequestMethod.POST)
 	public String insertSubItem(Model model, @ModelAttribute NewsReplyItem newsReplyItem,
@@ -73,14 +53,6 @@ public class ReplyItemController {
 		int boardId = ReplyItemService.insertSubReply(newsReplyItem, Integer.parseInt(rootReplyId)); // 해당 답글의 게시물 번호
 		return "redirect:/boardItem/view?id=" + boardId;
 	}
-
-//	/* 수정 양식 호출 */
-//	@RequestMapping(value = "/sub/update", method = RequestMethod.GET)
-//	public String showSubUpdateForm(Model model, @RequestParam(value = "id") int replyId) {
-//		NewsReplyItem newsSubReplyItem = ReplyItemService.getReply(replyId);
-//		model.addAttribute("newsSubReplyItem", newsSubReplyItem);
-//		return "subReplyItemUpdateForm";
-//	}
 
 	/* 수정 처리 */
 	@RequestMapping(value = "/sub/update", method = RequestMethod.POST)
