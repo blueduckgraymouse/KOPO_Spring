@@ -7,7 +7,7 @@ import kr.kopo.ctc.spring.boardItem.domain.NewsBoardItem;
 public class PageDto {
 	Page<NewsBoardItem> boardItems;
 	Pagination pagination;
-	
+
 	public PageDto(Page<NewsBoardItem> boardItems, Pagination pagination) {
 		this.boardItems = boardItems;
 		this.pagination = pagination;
