@@ -25,6 +25,7 @@ public class BoardItemService {
 	public PageDto getList(Integer cPage, String keyword) {
 		
 		int cPageNo = checkCPage(cPage, countPerPage, keyword);
+		
 		PageRequest pageable = PageRequest.of(cPageNo, countPerPage);
 		Page<NewsBoardItem> BoardItems = (keyword == null || keyword.equals("") ? 
 			boardItemRepository.findAllByOrderByIdDesc(pageable) :
