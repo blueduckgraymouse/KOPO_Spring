@@ -1,114 +1,158 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>네이버 뉴스</title>
-	<style>
-	  .container {
-	    max-width: 600px;
-	    margin:0 auto;
-	  }
-	  table {
-	    text-align: center;
-	  }
-	  .align-left {
-	    text-align: left;
-	  }
-	  .table-view {
-	    width: 600px;
-	    border: 1px solid black;
-	    border-collapse: collapse;
-	  }
-	  .table-view td {
-	    height: 30px;
-	    border: 1px solid grey;
-	  }
-	  .title {
-	    background-color: lightgrey;
-	    border-bottom: 3px double black;
-	  }
-	  a {
-	    color: black;
-	    text-decoration: none;
-	  }
-	  a:hover {
-	    text-decoration: underline;
-	  }
-	  div.div-button {
-	    text-align: right;
-	  }
-	  .pagination {
-	    margin:0 auto;
-	    text-align: center;
-	  }
-	</style>
+<meta charset="UTF-8">
+<title>네이버 뉴스</title>
+<!-- <link rel="stylesheet" type="text/css" href="/views/bootstrap/bootstrap.css"> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<style>
+ .container {
+ 	font-size: 15px;
+ }
+table td, th {
+	text-align : center;
+}
+a {
+	text-decoration : none;
+}
+a:hover {
+	color : navy;
+}
+</style>
 </head>
 
 
 <body>
+
+	<jsp:include page="boardBanner.jsp" />
+	
 	<div class="container">
-    <jsp:include page="boardBanner.jsp"/>
-
-    <h1>네이버 뉴스</h1>
-
-    <table class="table-view">
-      <tr class="title">
-        <td width="50px"><b>번호</b></td>
-        <td width="500px"><b>제목</b></td>
-        <td width="100px"><b>조회수</b></td>
-        <td width="100px"><b>등록일</b></td>
-      </tr>
-	  <c:forEach var="boardItem" items="${PageDto.boardItems.content}">
-	  <tr>
-	  	<td>${boardItem.id}</td>
-	  	<td class='align-left'>
-	  	  <a href='/boardItem/view?id=${boardItem.id}'>
-			${boardItem.title}
-	  	  </a>
-	  	</td>
-	  	<td>${boardItem.viewcnt}</td>
-	  	<td>${boardItem.date}</td>
-	  </tr>
-	  </c:forEach>
-    </table>
-
-    <br>
-    
-    <div class="div-button">
-      <input type="button" value="신규" onclick="window.location='/boardItem/insert'">
-    </div>
-    
-    <div class="pagination">
-      <c:set var="pagination" value="${PageDto.pagination}"/>
-	  <c:if test="${pagination.ppPage != 0 && pagination.pPage != 0}">
-			<a href='/boardItem/list?cPage=${pagination.ppPage}'>&lt;&lt;</a>
-			<a href='/boardItem/list?cPage=${pagination.pPage}'>&lt;</a>
-		</c:if>
+	
+		<br><h1 class="success">네이버 뉴스</h1><br>
 		
-		<c:forEach var="noPage" begin="${pagination.startPage}" end="${pagination.lastPage}">
-			<c:if test="${noPage != 0}">
-				<c:choose>
-					<c:when test="${noPage == pagination.cPage}">
-						<b><a style='text-decoration: underline;' href='/boardItem/list?cPage=${noPage}'>${noPage}</a></b>
+		<table class="table">
+			<tr class="table-primary">
+				<th width="10%"><b>번호</b></th>
+				<th width="50%"><b>제목</b></th>
+				<th width="10%"><b>조회수</b></th>
+				<th width="30%"><b>등록일</b></th>
+			</tr>
+			<c:forEach var="boardItem" items="${PageDto.boardItems.content}">
+				<tr class="table-active">
+					<td>${boardItem.id}</td>
+					<td class='align-left'><a
+						href='/boardItem/view?id=${boardItem.id}'> ${boardItem.title}
+					</a></td>
+					<td>${boardItem.viewcnt}</td>
+					<td>${boardItem.date}</td>
+				</tr>
+			</c:forEach>
+		</table>
+		
+		
+		<div style="text-align:right">
+			<button type="button" class="btn btn-primary" onclick="window.location='/boardItem/insert'">신규</button>
+		</div>
+		
+		
+		
+		<div class="row">
+		    <div class="col">
+		    </div>
+		    
+		    <div class="col">
+		    	<c:choose>
+			    	<c:when test="${keyword eq null || keyword eq ''}">
+						<ul class="pagination">
+							<c:set var="pagination" value="${PageDto.pagination}" />
+							<c:if test="${pagination.ppPage != 0 && pagination.pPage != 0}">
+								<li class="page-item">
+									<a class="page-link" href='/boardItem/list?cPage=${pagination.ppPage}'>&lt;&lt;</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href='/boardItem/list?cPage=${pagination.pPage}'>&lt;</a>
+								</li>
+							</c:if>
+					
+							<c:forEach var="noPage" begin="${pagination.startPage}"	end="${pagination.lastPage}">
+								<c:if test="${noPage != 0}">
+									<c:choose>
+										<c:when test="${noPage == pagination.cPage}">
+											<li class="page-item active">
+												<a class="page-link" href='/boardItem/list?cPage=${noPage}'>${noPage}</a>
+											</li>
+										</c:when>
+										<c:when test="${noPage != pagination.cPage}">
+											<li class="page-item">
+												<a  class="page-link"href='/boardItem/list?cPage=${noPage}'>${noPage}</a>
+											</li>
+										</c:when>
+									</c:choose>
+								</c:if>
+							</c:forEach>
+					
+							<c:if test="${pagination.nnPage != 0 && pagination.nPage != 0}">
+								<li class="page-item">
+									<a class="page-link" href='/boardItem/list?cPage=${pagination.nPage}'>&gt;</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href='/boardItem/list?cPage=${pagination.nnPage}'>&gt;&gt;</a>
+								</li>
+							</c:if>
+						</ul>
 					</c:when>
-					<c:when test="${noPage != pagination.cPage}">
-						<a href='/boardItem/list?cPage=${noPage}'>${noPage}</a>
-					</c:when>
+					
+					<c:otherwise>
+						<ul class="pagination">
+							<c:set var="pagination" value="${PageDto.pagination}" />
+							<c:if test="${pagination.ppPage != 0 && pagination.pPage != 0}">
+								<li class="page-item">
+									<a class="page-link" href='/boardItem/list?cPage=${pagination.ppPage}&keyword=${keyword}'>&lt;&lt;</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href='/boardItem/list?cPage=${pagination.pPage}&keyword=${keyword}'>&lt;</a>
+								</li>
+							</c:if>
+					
+							<c:forEach var="noPage" begin="${pagination.startPage}"	end="${pagination.lastPage}">
+								<c:if test="${noPage != 0}">
+									<c:choose>
+										<c:when test="${noPage == pagination.cPage}">
+											<li class="page-item active">
+												<a class="page-link" href='/boardItem/list?cPage=${noPage}&keyword=${keyword}'>${noPage}</a>
+											</li>
+										</c:when>
+										<c:when test="${noPage != pagination.cPage}">
+											<li class="page-item">
+												<a  class="page-link"href='/boardItem/list?cPage=${noPage}&keyword=${keyword}'>${noPage}</a>
+											</li>
+										</c:when>
+									</c:choose>
+								</c:if>
+							</c:forEach>
+					
+							<c:if test="${pagination.nnPage != 0 && pagination.nPage != 0}">
+								<li class="page-item">
+									<a class="page-link" href='/boardItem/list?cPage=${pagination.nPage}&keyword=${keyword}'>&gt;</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href='/boardItem/list?cPage=${pagination.nnPage}&keyword=${keyword}'>&gt;&gt;</a>
+								</li>
+							</c:if>
+						</ul>
+					</c:otherwise>
 				</c:choose>
-			</c:if>
-		</c:forEach>
-		
-		<c:if test="${pagination.nnPage != 0 && pagination.nPage != 0}">
-			<a href='/boardItem/list?cPage=${pagination.nPage}'>&gt;</a>
-			<a href='/boardItem/list?cPage=${pagination.nnPage}'>&gt;&gt;</a>
-		</c:if>
-    </div>
-  </div>
+			</div>
+			
+		    <div class="col">
+		    </div>
+		</div>
+	</div>
 </body>
-
 
 </html>
