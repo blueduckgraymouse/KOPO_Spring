@@ -12,13 +12,12 @@ import kr.kopo.ctc.spring.boardItem.repository.ReplyItemRepository;
 
 @Service
 public class ReplyItemService {
-	
+
 	@Autowired
 	BoardItemRepository boardItemRepository;
 	@Autowired
 	ReplyItemRepository replyItemRepository;
-	
-	
+
 	/* 입력 처리 */
 	public void insertReply(NewsReplyItem newsReplyItem, int boardId) {
 		NewsBoardItem newsBoardItem = boardItemRepository.findById(boardId).get();
@@ -27,15 +26,13 @@ public class ReplyItemService {
 		newsReplyItem.setRootReplyItem(newsReplyItem);
 		replyItemRepository.save(newsReplyItem);
 	}
-	
-	
+
 	/* 단일 조회 */
 	public NewsReplyItem getReply(int replyId) {
 		NewsReplyItem replyItem = replyItemRepository.findById(replyId).get();
 		return replyItem;
 	}
-	
-	
+
 	/* 수정 처리 */
 	public int updateReply(NewsReplyItem newsReplyItem) {
 		NewsReplyItem newsReplyItemmbefore = replyItemRepository.findById(newsReplyItem.getId()).get();
@@ -44,21 +41,17 @@ public class ReplyItemService {
 		int boardId = replyItemInserted.getNewsBoardItem().getId();
 		return boardId;
 	}
-	
-	
+
 	/* 삭제 처리 */
 	public int deleteReply(int replyId) {
 		int boardId = replyItemRepository.findById(replyId).get().getNewsBoardItem().getId();
 		replyItemRepository.deleteById(replyId);
 		return boardId;
 	}
-	
-	
-	
-	
+
 	/* 입력 처리 */
 	public int insertSubReply(NewsReplyItem newsReplyItemInput, int rootReplyId) {
-		
+
 		NewsReplyItem newsReplyItemRoot = replyItemRepository.findById(rootReplyId).get();
 		newsReplyItemInput.setDate(new Date());
 		newsReplyItemInput.setRootReplyItem(newsReplyItemRoot);
@@ -67,7 +60,6 @@ public class ReplyItemService {
 		return newsReplyItemRoot.getNewsBoardItem().getId();
 	}
 
-	
 	/* 수정 처리 */
 	public int updateSubReply(NewsReplyItem newsReplyItem) {
 		NewsReplyItem newsReplyItemmbefore = replyItemRepository.findById(newsReplyItem.getId()).get();
@@ -76,8 +68,7 @@ public class ReplyItemService {
 		int boardId = replyItemInserted.getNewsBoardItem().getId();
 		return boardId;
 	}
-	
-	
+
 	/* 삭제 처리 */
 	public int deleteSubReply(int replyId) {
 		int boardId = replyItemRepository.findById(replyId).get().getNewsBoardItem().getId();
