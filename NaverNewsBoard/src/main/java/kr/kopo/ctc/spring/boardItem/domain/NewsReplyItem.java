@@ -20,51 +20,39 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class NewsReplyItem {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer id;
-	
-	
-	@Column
+
+	@Column(nullable = false)
 	private Date date;
-	
-	
-	@Column
+
+	@Column(nullable = false)
 	private String writer;
-	
-	
-	@Column
+
+	@Column(nullable = false)
 	private String content;
 
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JsonManagedReference
-	@JoinColumn(name="boardItemId")
-	private NewsBoardItem newsBoardItem;
-	
-	
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonManagedReference
-    @JoinColumn(name = "rootReplyItems")
-    private NewsReplyItem rootReplyItem;
-	
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rootReplyItem")	// EAGER여야할 것 같아 보이는데 EAGER하면 같은 레코드를 sub개수만큼 반복적으로 가져옴.
+	@JoinColumn(name = "boardItemId")
+	private NewsBoardItem newsBoardItem;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@JoinColumn(name = "rootReplyItems")
+	private NewsReplyItem rootReplyItem;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rootReplyItem") // EAGER여야할 것 같아 보이는데 EAGER하면 같은 레코드를 sub개수만큼 반복적으로 가져옴.
 	@JsonBackReference
-    private List<NewsReplyItem> subReplyItems;
-	
-	
-	
-	
-	
-	
+	private List<NewsReplyItem> subReplyItems;
+
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -123,6 +111,5 @@ public class NewsReplyItem {
 		return "NewsReplyItem [id=" + id + ", date=" + date + ", writer=" + writer + ", content=" + content
 				+ ", newsBoardItem=" + newsBoardItem + "]";
 	}
-
 
 }

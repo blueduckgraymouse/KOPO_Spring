@@ -13,50 +13,42 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class NewsBoardItem {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer id;
-	
-	
-	@Column
+
+	@Column(nullable = false)
 	private String title;
-	
-	
-	@Column
+
+	@Column(nullable = false)
 	private String writer;
-	
-	
-	@Column
+
+	@Column(nullable = false)
 	private Date date;
-	
-	
-	@Column
+
+	@Column(columnDefinition="text")
 	private String content;
 
-	
-	@Column
+	@Column(nullable = false)
+	@ColumnDefault("0")
 	private Integer viewcnt;
-	
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="newsBoardItem")
-	@JsonBackReference	
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "newsBoardItem")
+	@JsonBackReference
 	private List<NewsReplyItem> newsReplyItems;
-	
-	
-	
-	
-	
-	
+
 	public NewsBoardItem() {
-		
+
 	}
-	
+
 	public NewsBoardItem(String title, String writer, Date date, String content, Integer viewcnt) {
 		this.title = title;
 		this.writer = writer;
@@ -64,7 +56,7 @@ public class NewsBoardItem {
 		this.content = content;
 		this.viewcnt = viewcnt;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -122,5 +114,3 @@ public class NewsBoardItem {
 		this.newsReplyItems = newsReplyItems;
 	}
 }
-
-
