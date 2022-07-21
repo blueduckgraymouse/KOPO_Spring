@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kopo.ctc.spring.boardItem.domain.NewsBoardItem;
 import kr.kopo.ctc.spring.boardItem.dto.PageDto;
@@ -49,6 +51,14 @@ public class BoardItemController {
 	public String doInsert(Model model, @ModelAttribute NewsBoardItem boardItem) {
 		NewsBoardItem boardItemInserted = boardItemService.insertItem(boardItem);
 		return "redirect:/boardItem/view?id=" + boardItemInserted.getId();
+	}
+	
+	/* 파일 업로드 처리 */
+	@RequestMapping(value = "/uploadSummernoteImageFile", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadImageFile(Model model, @RequestParam("file") MultipartFile multipartFile) {
+		String ImageFileUrl = boardItemService.uploadImageFileInTemp(multipartFile);
+		return ImageFileUrl;
 	}
 
 	/* 수정 양식 호출 */

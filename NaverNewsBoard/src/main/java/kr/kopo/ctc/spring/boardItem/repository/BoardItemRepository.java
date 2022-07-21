@@ -16,7 +16,7 @@ public interface BoardItemRepository extends JpaRepository<NewsBoardItem, Intege
 
 	/* 게시물 개수 조회 */
 	public long count();
-	public long countByTitleContaining(String keword);
+	public long countByTitleContaining(String keyword);
 
 	/* 록록 조회 (id기준 내림차순) */
 	public Page<NewsBoardItem> findAllByOrderByIdDesc(Pageable pageagle);

@@ -1,11 +1,13 @@
 package kr.kopo.ctc.spring.boardItem.service;
 
+import java.io.File;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kopo.ctc.spring.boardItem.domain.NewsBoardItem;
 import kr.kopo.ctc.spring.boardItem.dto.PageDto;
@@ -54,13 +56,59 @@ public class BoardItemService {
 														boardItemInput.getContent(),
 														0);
 		NewsBoardItem BoardItemInserted = boardItemRepository.save(BoardItemSave);
+		
+		/* temp파일에 모든 이미지가 저장되는 걸 피하기 위해
+		 * 저장 처리가 되면 temp의 파일을 id번호를 이름으로 갖는 폴더로 옮기려고 헀으나.
+		*  트렌젝션 이슈.
+		*  
+		*  입력 페이지에서는 id가 부여되지 않아 저장 처리시 파일이동을 해야하는데 그러면 입력폼에서의 미리보기와 상세페이지의 미리보기 2경우를 모두 만족시킬 수 없음.
+		*  내일 이어서 고민 하자.
+		*/
+//		try {
+//		      File folderTemp = new File("C:/KOPO/git_tracking/spring/NaverNewsBoardImageFile/temp/"); 
+//		      File folderId = new File("C:/KOPO/git_tracking/spring/NaverNewsBoardImageFile/" + BoardItemInserted.getId() + "/"); 
+//		      File[] files = null;
+//
+//		      folderId.mkdir();
+//		      
+//	          files = folderTemp.listFiles();
+//		          
+//	          for (File file : files) {
+//	        	  String fileName = file.getName();
+//	        	  File target = new File(folderId + File.separator + fileName);
+//	            file.renameTo(target);
+//	            System.out.println("이동이동");
+//	          }
+//		  } catch (Exception e) {
+//		      e.printStackTrace();
+//		  }
+		
 		return BoardItemInserted;
+	}
+	
+	/* summernote에 이미지 업로드시 temp 폴더에 저장 */
+	public String uploadImageFileInTemp(MultipartFile multipartFile) {
+		String locFilePath = "C:/KOPO/git_tracking/spring/NaverNewsBoardImageFile/temp/";
+		String WebFilePath = "/NaverNewsBoardImageFile/temp/";
+		String fileUrl = null;
+		
+        try {
+        	// summernote에서 이미지 파일이 증발해버리던 것을 로컬에 저장시킴.
+            File destination = new File(locFilePath + File.separator + multipartFile.getOriginalFilename());
+            multipartFile.transferTo(destination);
+            
+            fileUrl = WebFilePath + multipartFile.getOriginalFilename();
+        } catch(Exception e) {
+        	e.printStackTrace();
+        }
+		return fileUrl;
 	}
 
 	/* 수정 처리 */
 	public NewsBoardItem updateItem(NewsBoardItem boardItemInput) {
 		NewsBoardItem BoardItem = boardItemRepository.findById(boardItemInput.getId()).get();
 		BoardItem.setTitle(boardItemInput.getTitle());
+		BoardItem.setWriter(boardItemInput.getWriter());
 		BoardItem.setContent(boardItemInput.getContent());
 		NewsBoardItem BoardItemUpdated = boardItemRepository.save(BoardItem);
 		return BoardItemUpdated;
