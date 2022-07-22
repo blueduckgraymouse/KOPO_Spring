@@ -84,7 +84,7 @@ a:hover {
 			
 			
 				<c:forEach var="replyItem" items="${boardItem.newsReplyItems}" varStatus="rootStatus">
-					<c:if test="${replyItem.id eq replyItem.rootReplyItem.id}">
+					<c:if test="${replyItem.rootReplyItem.id eq null}">
 					
 						<div class="list-group-item list-group-item-action flex-column align-items-start">
 							<div class="d-flex w-100 justify-content-between">
