@@ -2,6 +2,7 @@ package kr.kopo.ctc.spring.boardItem.service;
 
 import java.io.File;
 import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -62,7 +63,7 @@ public class BoardItemService {
 		*  트렌젝션 이슈.
 		*  
 		*  입력 페이지에서는 id가 부여되지 않아 저장 처리시 파일이동을 해야하는데 그러면 입력폼에서의 미리보기와 상세페이지의 미리보기 2경우를 모두 만족시킬 수 없음.
-		*  내일 이어서 고민 하자.
+		*  고민해보자.
 		*/
 //		try {
 //		      File folderTemp = new File("C:/KOPO/git_tracking/spring/NaverNewsBoardImageFile/temp/"); 
@@ -92,12 +93,27 @@ public class BoardItemService {
 		String WebFilePath = "/NaverNewsBoardImageFile/temp/";
 		String fileUrl = null;
 		
+//		// 원본 파일명 살려서 저장.
+//        try {
+//            File destination = new File(locFilePath + File.separator + multipartFile.getOriginalFilename());
+//            multipartFile.transferTo(destination);
+//            
+//            fileUrl = WebFilePath + multipartFile.getOriginalFilename();
+//        } catch(Exception e) {
+//        	e.printStackTrace();
+//        }
+//		return fileUrl;
+		
+		// summernote에서 이미지 파일이 증발해버리던 것을 로컬에 저장시킴.
         try {
         	// summernote에서 이미지 파일이 증발해버리던 것을 로컬에 저장시킴.
-            File destination = new File(locFilePath + File.separator + multipartFile.getOriginalFilename());
+        	String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+    		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+    		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+            File destination = new File(locFilePath + File.separator + savedFileName);
             multipartFile.transferTo(destination);
             
-            fileUrl = WebFilePath + multipartFile.getOriginalFilename();
+            fileUrl = WebFilePath + savedFileName;
         } catch(Exception e) {
         	e.printStackTrace();
         }
@@ -119,6 +135,9 @@ public class BoardItemService {
 		boardItemRepository.deleteById(id);
 	}
 
+	
+	
+	
 	/*
 	 * 현재페에지 번호, 한페이지 당 레코드 수, 한 그룹당 페이지 개수, 총 레코드 수를 파라미터로 받아 페이지 정보를 계산하여
 	 * pagination객체로 반환하는 메서드
