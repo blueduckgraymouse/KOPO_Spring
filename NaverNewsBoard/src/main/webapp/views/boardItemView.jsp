@@ -31,6 +31,12 @@
 p {
 	text-indent: 0;
 }
+a {
+	text-decoration: none;
+}
+a:hover {
+	color: grey;
+}
 </style>
 </head>
 
