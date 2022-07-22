@@ -40,13 +40,11 @@ public class NewsReplyItem {
 	@JoinColumn(name = "boardItemId")
 	private NewsBoardItem newsBoardItem;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonManagedReference
+	@ManyToOne	// 셀프 참조는 fetch 패치 옵션을 설정하는 의미가 없다. 샐프이므로 이미 다 가져온 상태이므로 EAGER 같이 동작.
 	@JoinColumn(name = "rootReplyItems")
 	private NewsReplyItem rootReplyItem;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rootReplyItem") // EAGER여야할 것 같아 보이는데 EAGER하면 같은 레코드를 sub개수만큼 반복적으로 가져옴.
-	@JsonBackReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rootReplyItem")	
 	private List<NewsReplyItem> subReplyItems;
 
 	public Integer getId() {
