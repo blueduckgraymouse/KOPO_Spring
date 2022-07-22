@@ -41,7 +41,7 @@ public class NewsReplyItem {
 	private NewsBoardItem newsBoardItem;
 
 	@ManyToOne	// 셀프 참조는 fetch 패치 옵션을 설정하는 의미가 없다. 샐프이므로 이미 다 가져온 상태이므로 EAGER 같이 동작.
-	@JoinColumn(name = "rootReplyItems", nullable= true)
+	@JoinColumn(name = "rootReplyItemId", nullable= true)
 	private NewsReplyItem rootReplyItem;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rootReplyItem")	
