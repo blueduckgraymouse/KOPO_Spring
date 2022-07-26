@@ -34,7 +34,7 @@ public class NewsBoardItem {
 	@Column(nullable = false)
 	private Date date;
 
-	@Column(columnDefinition="text")
+	@Column(columnDefinition = "text")
 	private String content;
 
 	@Column(nullable = false)

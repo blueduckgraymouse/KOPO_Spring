@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -26,13 +25,13 @@ public class NewsReplyItem {
 	@Column
 	private Integer id;
 
-	@Column
+	@Column(nullable = false)
 	private Date date;
 
-	@Column
+	@Column(nullable = false)
 	private String writer;
 
-	@Column
+	@Column(nullable = false)
 	private String content;
 
 	@ManyToOne(fetch = FetchType.LAZY)
