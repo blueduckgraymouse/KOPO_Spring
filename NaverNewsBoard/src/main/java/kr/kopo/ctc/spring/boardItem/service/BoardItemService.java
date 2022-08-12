@@ -18,7 +18,7 @@ import kr.kopo.ctc.spring.boardItem.repository.BoardItemRepository;
 @Service
 public class BoardItemService {
 
-	private final int countPerPage = 20;
+	private final int countPerPage = 10;
 	private final int pageSize = 10;
 
 	@Autowired

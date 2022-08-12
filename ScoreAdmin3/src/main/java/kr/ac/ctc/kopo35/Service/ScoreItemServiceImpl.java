@@ -290,7 +290,8 @@ public class ScoreItemServiceImpl implements ScoreItemService {
 		// 다음 그룹 첫 페이지 번호 & 마지막 페이지 번호
 		int nnPage = 0;
 		int nPage = 0;
-		if (!(startPage <= totalPage && totalPage <= startPage + pageSize) && (totalPage != 0)) {					
+		//if (!(startPage <= totalPage && totalPage <= startPage + pageSize) && (totalPage != 0)) {					
+		if (!(startPage <= totalPage && totalPage <= startPage + pageSize - 1) && (totalPage != 0)) {					
 			nnPage = totalPage;
 			nPage = startPage + pageSize;
 		}
